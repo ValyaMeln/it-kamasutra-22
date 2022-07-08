@@ -16,6 +16,13 @@ ul li {
   /* grid-gap: 10px; */
 }
 
+.app-wrapper-content {
+  margin: 15px 0 15px 15px;
+  padding: 15px;
+  grid-area: c;
+  background-color: rgb(65, 230, 230);
+}
+
 footer {
   grid-area: f;
   color: white;

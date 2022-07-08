@@ -6,7 +6,7 @@ import s from './Profile.module.css';
 const Profile = () => {
   return (
 
-    <div className={s.content}>
+    <div>
       <div className={s.content_img}>
         <img src='https://img.freepik.com/free-photo/female-hands-counting-money-on-dollar_79075-11663.jpg'>
         </img>
@@ -15,8 +15,8 @@ const Profile = () => {
         ava + description
       </div>
 
-      <MyPosts/>
-      
+      <MyPosts />
+
     </div>
 
 
