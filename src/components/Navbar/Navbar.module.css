@@ -1,0 +1,27 @@
+.nav {
+  grid-area: n;
+  background-color: rgb(238, 226, 55);
+  padding: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  transition: .5s;
+}
+
+
+
+.item {
+  text-decoration: none;
+  color: black;
+  transition: .5s;
+}
+.item:hover {
+  text-decoration: underline;
+  color: red;
+  background-color: #fff;
+}
+.item.active {
+  color: rgb(223, 193, 23);
+}

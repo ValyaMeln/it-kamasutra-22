@@ -1,0 +1,19 @@
+/* .item {
+  color: rgb(23, 202, 32);
+  cursor: pointer;
+  transition: .5s;
+}
+.item:hover {
+  background-color: #fff;
+}
+
+img{
+  width: 50px;
+} */
+.posts {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

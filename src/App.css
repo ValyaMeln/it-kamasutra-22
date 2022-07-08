@@ -1,4 +1,43 @@
-.App {
+* {
+  box-sizing: border-box;
+}
+
+ul li {
+  list-style-type: style type circle;
+}
+
+.app-wrapper {
+  margin: 0 auto;
+  display: grid;
+  width: 1200px;
+  grid-template-areas: "h h""n c""f f";
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
+  /* grid-gap: 10px; */
+}
+
+footer {
+  grid-area: f;
+  color: white;
+  background-color: rgb(151, 19, 134);
+  padding: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +74,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
