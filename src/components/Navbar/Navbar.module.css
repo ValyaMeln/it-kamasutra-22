@@ -16,12 +16,15 @@ a {
   text-decoration: none;
   color: black;
   transition: .5s;
+  font-weight:normal
 }
-.item:hover {
+.item a:hover {
   text-decoration: underline;
   color: red;
   background-color: #fff;
 }
-.item.active {
-  color: rgb(223, 193, 23);
+
+.active {
+  color: rgb(223, 70, 23);
+  font-weight: bold;
 }
