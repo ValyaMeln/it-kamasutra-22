@@ -3,20 +3,23 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
 
-let postsData = [
-  { id: 1, message: "post 1", likesCount: 15 },
-  { id: 2, message: "post 2", likesCount: 25 },
-  { id: 3, message: "post 3", likesCount: 8 },
-  { id: 4, message: "post 4", likesCount: 10 },
-  { id: 5, message: "post 5", likesCount: 17 },
-];
+// let postsData = [
+//   { id: 1, message: "post 1", likesCount: 15 },
+//   { id: 2, message: "post 2", likesCount: 25 },
+//   { id: 3, message: "post 3", likesCount: 8 },
+//   { id: 4, message: "post 4", likesCount: 10 },
+//   { id: 5, message: "post 5", likesCount: 17 },
+// ];
 
-let postsElements = postsData.map(
-  (postElement) =>
-    <Post message={postElement.message} likesCount={postElement.likesCount} />
-);
 
-const MyPosts = () => {
+
+const MyPosts = (props) => {
+
+  let postsElements = props.posts.map(
+    (postElement) =>
+      <Post message={postElement.message} likesCount={postElement.likesCount} />
+  );
+
   return (
 
     <div>

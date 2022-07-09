@@ -12,7 +12,7 @@ import Profile from './components/Profile/Profile';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
-const App = () => {
+const App = (props) => {
   return (
     <BrowserRouter>
       <div className='app-wrapper'>
@@ -24,15 +24,13 @@ const App = () => {
 
         <div className='app-wrapper-content'>
           <Routes>
-            <Route path='/dialogs/*' element={<Dialogs />} />  {/*exact*/}
-            <Route path='/profile' element={<Profile/>} />
-            <Route path='/news' element={<News/>} />
-            <Route path='/profile' element={<Profile/>} />
+        
+            <Route path='/dialogs/*' element={<Dialogs dialogsData={props.dialogsData} messageData={props.messageData} />} />  
+            <Route path='/profile' element={<Profile posts={props.posts} />} />
+            <Route path='/news' element={<News />} />
+        
           </Routes>
 
-          {/* <Route component={Profile} /> */}
-          {/* <Dialogs /> */}
-          {/* <Profile /> */}
         </div>
         <Footer />
 
