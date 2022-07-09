@@ -27,11 +27,11 @@ import DialogItem from "./DialogItem/DialogItem";
 
 const Dialogs = (props) => {
 
-  let dialogsElement = props.dialogsData.map(
+  let dialogsElement = props.data.dialogsData.map(
     (dialogElement) => <DialogItem name={dialogElement.name} id={dialogElement.id} />
   );
 
-  let messageElement = props.messageData.map(
+  let messageElement = props.data.messageData.map(
     (messageEl => <Message message={messageEl.message} />)
   )
 
