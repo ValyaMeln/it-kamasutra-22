@@ -6,9 +6,12 @@
 } */
 
 .content_img {
-  text-align: center;
+  /* text-align: center; */
+  height: 150px;
 }
-
+.content_img img{
+  height: 100%;
+}
 .descroption_block {
   font-weight: bold;
   font-style: italic;

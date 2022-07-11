@@ -13,6 +13,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
 const App = (props) => {
+  // debugger;
   return (
     <BrowserRouter>
       <div className='app-wrapper'>
@@ -27,7 +28,13 @@ const App = (props) => {
 
             <Route path='/dialogs/*' element={<Dialogs data={props.appState.dialogsPage} />} />
 
-            <Route path='/profile' element={<Profile data={props.appState.profilePage} />} />
+            <Route path='/profile' element={<Profile
+              profilePage={props.appState.profilePage}
+              addPost={props.addPost}
+              updateNewPostText={props.updateNewPostText}
+            />}
+            />
+
 
             <Route path='/news' element={<News />} />
 

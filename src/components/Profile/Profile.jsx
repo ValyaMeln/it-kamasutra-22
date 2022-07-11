@@ -7,7 +7,7 @@ import ProfileInfo from './ProfileInfo/ProfileInfo.jsx';
 
 
 const Profile = (props) => {
-
+// debugger;
 
   return (
 
@@ -15,7 +15,14 @@ const Profile = (props) => {
 
       <ProfileInfo />
 
-      <MyPosts posts={props.data.postsData}/>
+      <MyPosts
+        posts={props.profilePage.postsData}
+        newPostText={props.profilePage.newPostText}
+        updateNewPostText={props.updateNewPostText}
+        addPost={props.addPost}
+        // updateNewPostText={props.updateNewPostText}
+      
+      />
 
     </div>
 

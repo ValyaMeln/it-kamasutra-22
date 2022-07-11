@@ -28,7 +28,7 @@ import DialogItem from "./DialogItem/DialogItem";
 const Dialogs = (props) => {
 
   let dialogsElement = props.data.dialogsData.map(
-    (dialogElement) => <DialogItem name={dialogElement.name} id={dialogElement.id} />
+    (dialogElement) => <DialogItem name={dialogElement.name} id={dialogElement.id} avatar={dialogElement.avatar} />
   );
 
   let messageElement = props.data.messageData.map(
@@ -48,6 +48,10 @@ const Dialogs = (props) => {
           messageElement
         }
       </ul>
+      <div className={s.wrapper_textarea}>
+        <textarea className={s.textarea}></textarea>
+        <button className={s.button}>Додати Повідомлення</button>
+      </div>
     </div>
   )
 }

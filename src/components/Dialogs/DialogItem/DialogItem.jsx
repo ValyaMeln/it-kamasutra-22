@@ -5,15 +5,14 @@ import { NavLink } from "react-router-dom";
 const DialogItem = (props) => {
 
   let path = '/dialogs/' + props.id;
+  // console.log(props.avatar);
+  // console.log(props.id);
+  // console.log(props.name);
 
   return (
     <li className={s.item}>
-      <div>
-        <img className={s.img_avatar} src={`props.image`}alt="" />
-      </div>
-
       <NavLink className={({ isActive }) => (isActive ? s.active : s.item)} to={path}>
-        <img className={s.img_avatar} src={props.avatar} alt="" />
+        <img className={s.img_avatar} src={props.avatar} alt="avatar" />
         {props.name}
       </NavLink>
     </li>
