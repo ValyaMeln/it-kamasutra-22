@@ -1,4 +1,3 @@
-
 import React from 'react';  // React з папки node_modules
 import './App.css';
 import Dialogs from './components/Dialogs/Dialogs';
@@ -25,15 +24,13 @@ const App = (props) => {
 
         <div className='app-wrapper-content'>
           <Routes>
+            {/* //Route слідкують за урлом url */}
+            <Route path='/dialogs/*' element={<Dialogs store={props.store} />} />
 
-            <Route path='/dialogs/*' element={<Dialogs data={props.appState.dialogsPage} />} />
-
-            <Route path='/profile' element={<Profile
+            <Route path='/profile/*' element={<Profile
               profilePage={props.appState.profilePage}
-              addPost={props.addPost}
-              updateNewPostText={props.updateNewPostText}
-            />}
-            />
+              dispatch={props.dispatch}
+            />} />
 
 
             <Route path='/news' element={<News />} />

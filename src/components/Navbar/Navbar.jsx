@@ -8,6 +8,7 @@ const Navbar = () => {
 
     <nav className={s.nav}>
       <div>
+        {/* //NavLink задача змінити урл в браузері без перезавантаження сторінки */}
         <NavLink to='/profile'  className={navData => navData.isActive ? s.active : s.item}>Profile</NavLink>
       </div>
       <div className={`${s.item} ${s.active}`} >
