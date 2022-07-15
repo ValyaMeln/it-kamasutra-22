@@ -1,7 +1,7 @@
 import React from 'react';  // React з папки node_modules
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/profile-reducer';
+
 
 
 
@@ -12,18 +12,14 @@ const MyPosts = (props) => {
 
   let newPostElement = React.createRef();
 
-  let addPost = () => {
-    // debugger;
-    props.dispatch(addPostActionCreator());
+  let onAddPost = () => {
+    props.addPost();
   };
 
   let onPostChange = () => {    //те що ми вводимо в textarea, але його не видно
     let text = newPostElement.current.value;
-    // console.log(props);
-    let action = updateNewPostTextActionCreator(text);
-    props.dispatch(action);
-    // debugger;
-    // console.log(props.updateNewPostText(text));
+    props.updateNewPostText(text);
+ 
   }
 
 
@@ -37,10 +33,9 @@ const MyPosts = (props) => {
             ref={newPostElement}
             className={s.textarea}
             value={props.newPostText}
-
           />
         </div>
-        <button onClick={addPost} className={s.button}>Add Post</button>
+        <button onClick={onAddPost} className={s.button}>Add Post</button>
       </div>
       <ul className={s.posts}>
         {postElements}

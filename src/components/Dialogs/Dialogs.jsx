@@ -9,7 +9,7 @@ import { sendMessageCreator, sendNameCreator, updateNewMessageBodyCreator, updat
 
 const Dialogs = (props) => {
 
-  let state = props.store.getState().dialogsPage;
+  let state = props.dialogsPage;
 
   let dialogsElement = state.dialogsData.map(
     (dialogElement) => <DialogItem name={dialogElement.name} id={dialogElement.id} avatar={dialogElement.avatar} />
@@ -22,24 +22,26 @@ const Dialogs = (props) => {
   let newMessageBody = state.newMessageBody;
 
   let onSendMessageClick = () => {
-    props.store.dispatch(sendMessageCreator());
-
+    props.sendMessage();
+    // props.store.dispatch(sendMessageCreator());
   }
+
   let onNewMessageChange = (event) => {
     let body = event.target.value;
-    props.store.dispatch(updateNewMessageBodyCreator(body));
+    props.updateNewMessageBody(body);
+
   }
   // ====================================================
   let newName = state.newName;
 
   let onSendNameClick = () => {
     // debugger;
-    props.store.dispatch(sendNameCreator());
+    props.sendNameCreator();
 
   }
   let onNewNameChange = (event) => {
     let name = event.target.value;
-    props.store.dispatch(updateNewNameCreator(name));
+    props.updateNewNameCreator(name);
   }
 
   return (

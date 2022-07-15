@@ -9,6 +9,7 @@ import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 
 const App = (props) => {
@@ -25,13 +26,14 @@ const App = (props) => {
         <div className='app-wrapper-content'>
           <Routes>
             {/* //Route слідкують за урлом url */}
-            <Route path='/dialogs/*' element={<Dialogs store={props.store} />} />
+            <Route path='/dialogs/*' element={<DialogsContainer store={props.store} />} />
 
             <Route path='/profile/*' element={<Profile
-              profilePage={props.appState.profilePage}
-              dispatch={props.dispatch}
+              store={props.store}
+              // profilePage={props.appState.profilePage}
+              // dispatch={props.dispatch}
             />} />
-
+ 
 
             <Route path='/news' element={<News />} />
 
