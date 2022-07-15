@@ -1,11 +1,7 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+import dialogsReducer from "./dialogs-reducer";
+import profileReducer from "./profile-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-const SEND_MESSAGE = 'SEND-MESSAGE';
-
-const UPDATE_NEW_NAME = 'UPDATE-NEW-NAME';
-const SEND_NAME = 'SEND-NAME';
 
 let store = {
   _state: {
@@ -66,66 +62,15 @@ let store = {
 
 
   dispatch(action) {  // описує дію яку потрібно виконати
-    if (action.type === ADD_POST) {
-      // debugger;
-      let newPost = {
-        id: 6,
-        message: this._state.profilePage.newPostText,
-        likesCount: 15
-      };
-      this._state.profilePage.posts.push(newPost);
-      this._state.profilePage.newPostText = '';
-      this._callSubscriber(this._state);
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-      this._state.profilePage.newPostText = action.newText;
-      this._callSubscriber(this._state);
-    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-      this._state.dialogsPage.newMessageBody = action.body;
-      this._callSubscriber(this._state);
-    }
-    else if (action.type === SEND_MESSAGE) {
-      let body = this._state.dialogsPage.newMessageBody;
-      this._state.dialogsPage.newMessageBody = '';
-      this._state.dialogsPage.messageData.push({ id: 6, message: body },)
-      this._callSubscriber(this._state);
-    }
-    else if (action.type === UPDATE_NEW_NAME) {
-      this._state.dialogsPage.newName = action.name;
-      this._callSubscriber(this._state);
-    }
-    else if (action.type === SEND_NAME) {
-      let name = this._state.dialogsPage.newName;
-      // this._state.dialogsPage.newName = '';
-      this._state.dialogsPage.dialogsData.push( {id: 8, name: name, avatar: 'https://n1s2.hsmedia.ru/41/03/97/410397009a945f036b79cd0491208f34/728x485_1_4acce6d5a8c1860d79dbd764b6f0f028@5000x3333_0xac120003_8406445731619721756.jpg'},)
-      this._callSubscriber(this._state);
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+
+    this._callSubscriber(this._state);
   }
 
 }
-//!          Action Creator
-export const addPostActionCreator = () => ({ type: ADD_POST })
-export const updateNewPostTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
-  }
-}
 
-export const sendMessageCreator = () => ({ type: SEND_MESSAGE })
-export const updateNewMessageBodyCreator = (body) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_BODY,
-    body: body
-  }
-}
-
-export const sendNameCreator = () => ({ type: SEND_NAME })
-export const updateNewNameCreator = (name) => {
-  return {
-    type: UPDATE_NEW_NAME,
-    name: name
-  }
-}
 
 // addPost Додає новий пост який ми ввели в текст арії
 
