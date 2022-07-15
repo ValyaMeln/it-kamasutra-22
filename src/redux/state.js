@@ -4,6 +4,8 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
+const UPDATE_NEW_NAME = 'UPDATE-NEW-NAME';
+const SEND_NAME = 'SEND-NAME';
 
 let store = {
   _state: {
@@ -27,6 +29,7 @@ let store = {
         { id: 6, name: 'Kevin', avatar: 'https://stihi.ru/pics/2021/01/05/7907.jpg' },
         { id: 7, name: 'Amanda', avatar: 'https://n1s2.hsmedia.ru/41/03/97/410397009a945f036b79cd0491208f34/728x485_1_4acce6d5a8c1860d79dbd764b6f0f028@5000x3333_0xac120003_8406445731619721756.jpg' },
       ],
+      newName: '',
       messageData: [
         { id: 1, message: 'Ті, що сплять, не роблять помилок.' },
         { id: 2, message: 'Дія не завжди приведе до щастя, але до щастя привести може лише дія.' },
@@ -81,9 +84,19 @@ let store = {
       this._callSubscriber(this._state);
     }
     else if (action.type === SEND_MESSAGE) {
-      let body= this._state.dialogsPage.newMessageBody;
+      let body = this._state.dialogsPage.newMessageBody;
       this._state.dialogsPage.newMessageBody = '';
-      this._state.dialogsPage.messageData.push( { id: 6, message: body },)
+      this._state.dialogsPage.messageData.push({ id: 6, message: body },)
+      this._callSubscriber(this._state);
+    }
+    else if (action.type === UPDATE_NEW_NAME) {
+      this._state.dialogsPage.newName = action.name;
+      this._callSubscriber(this._state);
+    }
+    else if (action.type === SEND_NAME) {
+      let name = this._state.dialogsPage.newName;
+      // this._state.dialogsPage.newName = '';
+      this._state.dialogsPage.dialogsData.push( {id: 8, name: name, avatar: 'https://n1s2.hsmedia.ru/41/03/97/410397009a945f036b79cd0491208f34/728x485_1_4acce6d5a8c1860d79dbd764b6f0f028@5000x3333_0xac120003_8406445731619721756.jpg'},)
       this._callSubscriber(this._state);
     }
   }
@@ -106,6 +119,13 @@ export const updateNewMessageBodyCreator = (body) => {
   }
 }
 
+export const sendNameCreator = () => ({ type: SEND_NAME })
+export const updateNewNameCreator = (name) => {
+  return {
+    type: UPDATE_NEW_NAME,
+    name: name
+  }
+}
 
 // addPost Додає новий пост який ми ввели в текст арії
 

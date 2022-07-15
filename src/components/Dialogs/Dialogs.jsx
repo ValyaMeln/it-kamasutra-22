@@ -3,7 +3,7 @@ import s from './Dialogs.module.css';
 
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import { sendMessageCreator, updateNewMessageBodyCreator } from "../../redux/state";
+import { sendMessageCreator, sendNameCreator, updateNewMessageBodyCreator, updateNewNameCreator } from "../../redux/state";
 
 
 
@@ -28,6 +28,18 @@ const Dialogs = (props) => {
   let onNewMessageChange = (event) => {
     let body = event.target.value;
     props.store.dispatch(updateNewMessageBodyCreator(body));
+  }
+  // ====================================================
+  let newName = state.newName;
+
+  let onSendNameClick = () => {
+    // debugger;
+    props.store.dispatch(sendNameCreator());
+
+  }
+  let onNewNameChange = (event) => {
+    let name = event.target.value;
+    props.store.dispatch(updateNewNameCreator(name));
   }
 
   return (
@@ -57,8 +69,14 @@ const Dialogs = (props) => {
 
       </ul>
       <div className={s.wrapper_textarea}>
-        <textarea className={s.textarea}></textarea>
-        <button className={s.button}>Додати Повідомлення</button>
+        <textarea
+          value={newName}
+          onChange={onNewNameChange}
+          placeholder="Ведіть ім'я"
+          className={s.textarea}>
+
+        </textarea>
+        <button onClick={onSendNameClick} className={s.button}>Додати Ім'я Користувача </button>
       </div>
     </div>
   )
