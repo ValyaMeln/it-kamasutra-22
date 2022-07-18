@@ -22,7 +22,7 @@ let mapDispatchToProps = (dispatch) => {
     updateNewNameCreator: (name) => {
       dispatch(updateNewNameCreator(name));
     },
-    sendNameCreator: () => {
+    sendNameCreator: () => {  
       dispatch(sendNameCreator());
     }
   }

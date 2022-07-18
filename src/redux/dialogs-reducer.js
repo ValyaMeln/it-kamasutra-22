@@ -28,35 +28,45 @@ let initialState = {
 
 const dialogsReducer = (state = initialState, action) => {
 
-  let stateCopy = {
-    ...state,
-    // messageData: [...state.messageData],
-    // dialogsData: [...state.dialogsData]
-  };
-  // stateCopy.messageData = [...state.messageData];
-  // stateCopy.dialogsData = [...state.dialogsData];
- 
+  // let stateCopy;
+
+
   switch (action.type) {
-    case UPDATE_NEW_MESSAGE_BODY:
-      stateCopy.newMessageBody = action.body;
-      return stateCopy;
+    case UPDATE_NEW_MESSAGE_BODY: {
+      return {
+        ...state,
+        newMessageBody: action.body
+      };
+ 
+    }
+    case SEND_MESSAGE: {
+      let body = state.newMessageBody;
+      return {
+        ...state,
+        newMessageBody: '',
+        messageData: [...state.messageData, { id: 6, message: body }]
+      };
+    }
+    case UPDATE_NEW_NAME: {
+      return {
+        ...state,
+        newName: action.name
+      };
+      // stateCopy.newName = action.name;
+      // return stateCopy;
+    }
+    case SEND_NAME: {
+      let name = state.newName;
+      return {
+        ...state,
+        newName: '',
+        dialogsData: [...state.dialogsData, { id: 8, name: name, avatar: 'https://n1s2.hsmedia.ru/41/03/97/410397009a945f036b79cd0491208f34/728x485_1_4acce6d5a8c1860d79dbd764b6f0f028@5000x3333_0xac120003_8406445731619721756.jpg' }]
+      };
 
-    case SEND_MESSAGE:
-      let body = stateCopy.newMessageBody;
-      stateCopy.newMessageBody = '';
-      stateCopy.messageData.push({ id: 6, message: body },);
-      return stateCopy;
-
-    case UPDATE_NEW_NAME:
-      stateCopy.newName = action.name;
-      return stateCopy;
-
-    case SEND_NAME:
-      let name = stateCopy.newName;
-      stateCopy.newName = '';
-      stateCopy.dialogsData.push({ id: 8, name: name, avatar: 'https://n1s2.hsmedia.ru/41/03/97/410397009a945f036b79cd0491208f34/728x485_1_4acce6d5a8c1860d79dbd764b6f0f028@5000x3333_0xac120003_8406445731619721756.jpg' },)
-      return stateCopy;
-
+      // stateCopy.newName = '';
+      // stateCopy.dialogsData.push({ id: 8, name: name, avatar: 'https://n1s2.hsmedia.ru/41/03/97/410397009a945f036b79cd0491208f34/728x485_1_4acce6d5a8c1860d79dbd764b6f0f028@5000x3333_0xac120003_8406445731619721756.jpg' },)
+      // return stateCopy;
+    }
     default:
       return state;
   }
