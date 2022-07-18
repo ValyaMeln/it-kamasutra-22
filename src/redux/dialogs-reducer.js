@@ -27,26 +27,35 @@ let initialState = {
 
 
 const dialogsReducer = (state = initialState, action) => {
+
+  let stateCopy = {
+    ...state,
+    // messageData: [...state.messageData],
+    // dialogsData: [...state.dialogsData]
+  };
+  // stateCopy.messageData = [...state.messageData];
+  // stateCopy.dialogsData = [...state.dialogsData];
+ 
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_BODY:
-      state.newMessageBody = action.body;
-      return state;
+      stateCopy.newMessageBody = action.body;
+      return stateCopy;
 
     case SEND_MESSAGE:
-      let body = state.newMessageBody;
-      state.newMessageBody = '';
-      state.messageData.push({ id: 6, message: body },);
-      return state;
+      let body = stateCopy.newMessageBody;
+      stateCopy.newMessageBody = '';
+      stateCopy.messageData.push({ id: 6, message: body },);
+      return stateCopy;
 
     case UPDATE_NEW_NAME:
-      state.newName = action.name;
-      return state;
+      stateCopy.newName = action.name;
+      return stateCopy;
 
     case SEND_NAME:
-      let name = state.newName;
-      state.newName = '';
-      state.dialogsData.push({ id: 8, name: name, avatar: 'https://n1s2.hsmedia.ru/41/03/97/410397009a945f036b79cd0491208f34/728x485_1_4acce6d5a8c1860d79dbd764b6f0f028@5000x3333_0xac120003_8406445731619721756.jpg' },)
-      return state;
+      let name = stateCopy.newName;
+      stateCopy.newName = '';
+      stateCopy.dialogsData.push({ id: 8, name: name, avatar: 'https://n1s2.hsmedia.ru/41/03/97/410397009a945f036b79cd0491208f34/728x485_1_4acce6d5a8c1860d79dbd764b6f0f028@5000x3333_0xac120003_8406445731619721756.jpg' },)
+      return stateCopy;
 
     default:
       return state;
