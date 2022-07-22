@@ -60,8 +60,16 @@
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-
+  height: 100px;
+  overflow: auto;
+  /* overflow-y: scroll; */
+  direction:rtl;
+  /* scroll-behavior: smooth; */
 }
+
+/* ::-webkit-scrollbar {
+  width: 50px;
+} */
 
 .selectedPage_wrapper li {
   padding: 5px;
