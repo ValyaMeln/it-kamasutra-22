@@ -1,8 +1,13 @@
 import React from 'react';  // React з папки node_modules
+import Preloader from '../../common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
 
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+  if (!props.profile) {
+    return <Preloader />
+  }
+  // debugger;
   return (
 
     <div>
@@ -11,7 +16,14 @@ const ProfileInfo = () => {
         </img>
       </div>
       <div className={s.descroption_block}>
-        ava + description
+        <img src={props.profile.photos.large} alt="" />
+      </div>
+      <div>
+
+        <p>Шукаю робoту:<span className={s.content_text}>{props.profile.lookingForAJob ? "Yes" : "Not"}</span></p>
+        <div>Моє ім'я:<span className={s.content_text}>{props.profile.fullName}</span></div>
+        <div>Iнформація про мене:<span className={s.content_text}>{props.profile.aboutMe}</span></div>
+        <div><img src={props.profile.photos.small} alt="" /></div>
       </div>
 
     </div>

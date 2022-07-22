@@ -1,6 +1,5 @@
 import React from "react";
 import * as axios from "axios"
-// import Users from "./Users";
 import { connect } from "react-redux";
 import { followAC, setCurrentPageAC, setUsersAC, setUsersTotalCountAC, toggleIsFetchingAC, unfollowAC } from "../../redux/users-reducer";
 import Users from "./Users";
@@ -33,9 +32,6 @@ class UsersAPIComponent extends React.Component {
         this.props.setUsers(response.data.items)
       });
   }
-
-
-
   render() {
 
     return <>
@@ -53,7 +49,6 @@ class UsersAPIComponent extends React.Component {
       />
     </>
   }
-
 }
 
 let mapStateToProps = (state) => {
@@ -66,26 +61,37 @@ let mapStateToProps = (state) => {
   }
 }
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (userId) => {
-      dispatch(followAC(userId))
-    },
-    unfollow: (userId) => {
-      dispatch(unfollowAC(userId))
-    },
-    setUsers: (users) => {        //відображення користувачів при першому відображені сторінки
-      dispatch(setUsersAC(users))
-    },
-    setCurrentPage: (pageNumber) => {
-      dispatch(setCurrentPageAC(pageNumber))
-    },
-    setTotalUsersCount: (totalCount) => {
-      dispatch(setUsersTotalCountAC(totalCount))
-    },
-    toggleIsFetching: (isFetching) => {
-      dispatch(toggleIsFetchingAC(isFetching))  //ми діспатчими виклик акшн кріейтора
-    }
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+
+export default connect(mapStateToProps, {
+  follow: followAC,
+  unfollow: unfollowAC,
+  setUsers: setUsersAC,
+  setCurrentPage: setCurrentPageAC,
+  setTotalUsersCount: setUsersTotalCountAC,
+  toggleIsFetching: toggleIsFetchingAC
+  
+})(UsersAPIComponent);
+
+
+// let mapDispatchToProps = (dispatch) => {
+//   return {
+//     follow: (userId) => {
+//       dispatch(followAC(userId))
+//     },
+//     unfollow: (userId) => {
+//       dispatch(unfollowAC(userId))
+//     },
+//     setUsers: (users) => {        //відображення користувачів при першому відображені сторінки
+//       dispatch(setUsersAC(users))
+//     },
+//     setCurrentPage: (pageNumber) => {
+//       dispatch(setCurrentPageAC(pageNumber))
+//     },
+//     setTotalUsersCount: (totalCount) => {
+//       dispatch(setUsersTotalCountAC(totalCount))
+//     },
+//     toggleIsFetching: (isFetching) => {
+//       dispatch(toggleIsFetchingAC(isFetching))  //ми діспатчими виклик акшн кріейтора
+//     }
+//   }
+// }
