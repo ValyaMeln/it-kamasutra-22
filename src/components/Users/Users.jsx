@@ -31,8 +31,35 @@ let Users = (props) => {
               </div>
               <div>
                 {u.followed
-                  ? <button onClick={() => { props.unfollow(u.id) }} className={s.follow}>UnFollow</button>
-                  : <button onClick={() => { props.follow(u.id) }} className={s.follow}>Follow</button> //передаємо через пропси діспач функцію follow
+                  ? <button onClick={() => {
+
+                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                      withCredentials: true,
+                      headers: { "API-KEY": "ea2b68a0-62d3-4ad3-a991-50d084b8bd82" }
+                    })
+                      .then(response => {
+                        if (response.data.resultCode === 0) {
+                          props.unfollow(u.id);
+                        }
+                      });
+
+
+
+                  }} className={s.follow}>UnFollow</button>
+                  : <button onClick={() => {
+                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+                      withCredentials: true,
+                      headers: { "API-KEY": "ea2b68a0-62d3-4ad3-a991-50d084b8bd82" }
+                    })
+                      .then(response => {
+                        if (response.data.resultCode === 0) {
+                          props.follow(u.id);
+                        }
+                      });
+
+
+
+                  }} className={s.follow}>Follow</button> //передаємо через пропси діспач функцію follow
                 }
               </div>
             </div>
