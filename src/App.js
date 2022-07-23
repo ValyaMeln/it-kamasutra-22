@@ -1,7 +1,7 @@
 import React from 'react';  // React з папки node_modules
 import './App.css';
 import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
+import HeaderContainer from './components/Header/HeaderContainer';
 import News from './components/News/News';
 import Navbar from './components/Navbar/Navbar';
 import { Route, Routes } from "react-router-dom";
@@ -10,13 +10,14 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 
 
+
 const App = (props) => {
   // debugger;
   return (
     // <BrowserRouter>
     <div className='app-wrapper'>
 
-      <Header />
+      <HeaderContainer />
 
       <Navbar />
 
@@ -35,7 +36,8 @@ const App = (props) => {
           <Route path="/profile/*" element={<ProfileContainer />}>
             <Route path=":userId" element={<ProfileContainer />} />
           </Route>
-
+          {/* <Route path='/profile/:userId' element={<ProfileContainer />} />
+          <Route path='/profile' element={<ProfileContainer />} /> */}
 
           <Route path='/news/*' element={<News />} />
 
