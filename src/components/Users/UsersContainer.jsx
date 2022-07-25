@@ -1,10 +1,10 @@
 import React from "react";
 import * as axios from "axios"
 import { connect } from "react-redux";
-import { followAC, setCurrentPageAC, setUsersAC, setUsersTotalCountAC, toggleIsFetchingAC, unfollowAC } from "../../redux/users-reducer";
+import { followAC, setCurrentPageAC, setUsersAC, setUsersTotalCountAC, toggleIsFetchingAC, unfollowAC, toggleFollowingProgres } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import { getUsers } from "../../api/api";
+import { usersAPI } from "../../api/api";
 
 
 
@@ -18,25 +18,25 @@ class UsersAPIComponent extends React.Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
 
-    getUsers(this.props.currentPage,this.props.pageSize).then(response => {
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+      // debugger;
       // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
       //   withCredentials: true
       // })
 
       this.props.toggleIsFetching(false);
-      this.props.setUsers(response.data.items);
-      this.props.setTotalUsersCount(response.data.totalCount);
+      this.props.setUsers(data.items);
+      this.props.setTotalUsersCount(data.totalCount);
     });
   }
   onPageChanged = (pageNumber) => {
     this.props.setCurrentPage(pageNumber);
     this.props.toggleIsFetching(true);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-      withCredentials: true
-    })
-      .then(response => {
+
+    usersAPI.getUsers(pageNumber, this.props.pageSize)
+      .then(data => {
         this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items)
+        this.props.setUsers(data.items)
       });
   }
   render() {
@@ -53,6 +53,8 @@ class UsersAPIComponent extends React.Component {
         unfollow={this.props.unfollow}
         follow={this.props.follow}  //компонента викликає колбек функцію(follow), а не екшн кріейтор
         isFetching={this.props.isFetching}
+        followingInProgress={this.props.followingInProgress}
+        toggleFollowingProgres={this.props.toggleFollowingProgres}
       />
     </>
   }
@@ -64,7 +66,8 @@ let mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    followingInProgress: state.usersPage.followingInProgress
   }
 }
 
@@ -75,7 +78,8 @@ export default connect(mapStateToProps, {
   setUsers: setUsersAC,
   setCurrentPage: setCurrentPageAC,
   setTotalUsersCount: setUsersTotalCountAC,
-  toggleIsFetching: toggleIsFetchingAC
+  toggleIsFetching: toggleIsFetchingAC,
+  toggleFollowingProgres
 
 })(UsersAPIComponent);
 

@@ -22,6 +22,8 @@ const ProfileInfo = (props) => {
 
         <p>Шукаю робoту:<span className={s.content_text}>{props.profile.lookingForAJob ? "Yes" : "Not"}</span></p>
         <div>Моє ім'я:<span className={s.content_text}>{props.profile.fullName}</span></div>
+        <div>Моє id:<span className={s.content_text}>{props.profile.userId}</span></div>
+        
         <div>Iнформація про мене:<span className={s.content_text}>{props.profile.aboutMe}</span></div>
         <div><img src={props.profile.photos.small} alt="" /></div>
       </div>

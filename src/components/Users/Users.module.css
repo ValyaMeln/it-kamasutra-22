@@ -48,6 +48,9 @@
   cursor: pointer;
   transition: all ease .5s;
 }
+.follow:disabled {
+  background: rgb(184, 18, 18);
+}
 
 .follow:hover {
 
@@ -63,7 +66,7 @@
   height: 100px;
   overflow: auto;
   /* overflow-y: scroll; */
-  direction:rtl;
+  direction: rtl;
   /* scroll-behavior: smooth; */
 }
 
