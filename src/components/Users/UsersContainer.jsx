@@ -1,10 +1,9 @@
 import React from "react";
-import * as axios from "axios"
 import { connect } from "react-redux";
-import { followAC, setCurrentPageAC, setUsersAC, setUsersTotalCountAC, toggleIsFetchingAC, unfollowAC, toggleFollowingProgres } from "../../redux/users-reducer";
+import { followAC, setCurrentPageAC, unfollowAC, toggleFollowingProgres, getUsersThunk } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import { usersAPI } from "../../api/api";
+// import { usersAPI } from "../../api/api";
 
 
 
@@ -16,28 +15,28 @@ class UsersAPIComponent extends React.Component {
   // }
 
   componentDidMount() {
-    this.props.toggleIsFetching(true);
-
-    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-      // debugger;
-      // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-      //   withCredentials: true
-      // })
-
-      this.props.toggleIsFetching(false);
-      this.props.setUsers(data.items);
-      this.props.setTotalUsersCount(data.totalCount);
-    });
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    // this.props.toggleIsFetching(true);
+    // usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+    //   // debugger;
+    //   // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+    //   //   withCredentials: true
+    //   // })
+    //   this.props.toggleIsFetching(false);
+    //   this.props.setUsers(data.items);
+    //   this.props.setTotalUsersCount(data.totalCount);
+    // });
   }
   onPageChanged = (pageNumber) => {
-    this.props.setCurrentPage(pageNumber);
-    this.props.toggleIsFetching(true);
+    this.props.getUsers(pageNumber, this.props.pageSize);
+    // this.props.setCurrentPage(pageNumber);
+    // this.props.toggleIsFetching(true);
 
-    usersAPI.getUsers(pageNumber, this.props.pageSize)
-      .then(data => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(data.items)
-      });
+    // usersAPI.getUsers(pageNumber, this.props.pageSize)
+    //   .then(data => {
+    //     this.props.toggleIsFetching(false);
+    //     this.props.setUsers(data.items)
+    //   });
   }
   render() {
 
@@ -75,11 +74,12 @@ let mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   follow: followAC,
   unfollow: unfollowAC,
-  setUsers: setUsersAC,
+  // setUsers: setUsersAC,
   setCurrentPage: setCurrentPageAC,
-  setTotalUsersCount: setUsersTotalCountAC,
-  toggleIsFetching: toggleIsFetchingAC,
-  toggleFollowingProgres
+  // setTotalUsersCount: setUsersTotalCountAC,
+  // toggleIsFetching: toggleIsFetchingAC,
+  toggleFollowingProgres,
+  getUsers: getUsersThunk
 
 })(UsersAPIComponent);
 
