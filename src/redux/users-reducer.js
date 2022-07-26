@@ -91,8 +91,8 @@ const usersReducer = (state = initialState, action) => {
 
 //!          Action Creator(AC)
 
-export const followOffAC = (userId) => ({ type: FOLLOW, userId })
-export const unfollowOnAC = (userId) => ({ type: UNFOLLOW, userId })
+export const followSuccessAC = (userId) => ({ type: FOLLOW, userId })
+export const unfollowSuccessAC = (userId) => ({ type: UNFOLLOW, userId })
 export const setUsersAC = (users) => ({ type: SET_USERS, users })
 export const setCurrentPageAC = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage: currentPage })
 export const setUsersTotalCountAC = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount })
@@ -101,7 +101,7 @@ export const toggleFollowingProgres = (isFetching, userId) => ({ type: TOGGLE_IS
 
 export const getUsersThunk = (currentPage, pageSize) => {
   return (dispatch) => {
-   
+    dispatch(setCurrentPageAC(currentPage));  //<<<-----  вот чего не хватало в видео
     dispatch(toggleIsFetchingAC(true));
 
     usersAPI.getUsers(currentPage, pageSize).then(data => {
@@ -117,29 +117,45 @@ export const follow = (userId) => {
   return (dispatch) => {
 
     dispatch(toggleFollowingProgres(true, userId));
-
     usersAPI.follow(userId)
-      .then(data => {
-        if (data.resultCode === 0) {
-          dispatch(followOffAC(userId));
+      .then(response => {
+        if (response.data.resultCode === 0) {
+          dispatch(followSuccessAC(userId));
         }
         dispatch(toggleFollowingProgres(false, userId));
       });
+
+    // dispatch(toggleFollowingProgres(true, userId));
+    // usersAPI.follow(userId)
+    //   .then(data => {
+    //     if (data.resultCode === 0) {
+    //       dispatch(followSuccessAC(userId));
+    //     }
+    //     dispatch(toggleFollowingProgres(false, userId));
+    //   });
   }
 }
 
 export const unfollow = (userId) => {
   return (dispatch) => {
-
     dispatch(toggleFollowingProgres(true, userId));
-
     usersAPI.unfollow(userId)
-      .then(data => {
-        if (data.resultCode === 0) {
-          dispatch(unfollowOnAC(userId));
+      .then(response => {
+        if (response.data.resultCode === 0) {
+          dispatch(unfollowSuccessAC(userId));
         }
         dispatch(toggleFollowingProgres(false, userId));
       });
+
+
+    // dispatch(toggleFollowingProgres(true, userId));
+    // usersAPI.unfollow(userId)
+    //   .then(data => {
+    //     if (data.resultCode === 0) {
+    //       dispatch(unfollowSuccessAC(userId));
+    //     }
+    //     dispatch(toggleFollowingProgres(false, userId));
+    //   });
   }
 }
 

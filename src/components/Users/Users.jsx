@@ -34,33 +34,39 @@ let Users = (props) => {
                 {u.followed
                   ? <button disabled={props.followingInProgress.some(id => id === u.id)}
                     onClick={() => {
-                      // props.unfollow(true, u.id);
+                      props.unfollow(u.id);
+
                       // debugger;
-                      props.toggleFollowingProgres(true, u.id);
                       // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                       //   withCredentials: true,
                       //   headers: { "API-KEY": "ea2b68a0-62d3-4ad3-a991-50d084b8bd82" }
                       // })
+                      // props.toggleFollowingProgres(true, u.id);
+                      // usersAPI.unfollow(u.id)
                       //   .then(response => {
                       //     if (response.data.resultCode === 0) {
                       //       props.unfollow(u.id);
                       //     }
+                      //     props.toggleFollowingProgres(false, u.id);
                       //   });
-                      usersAPI.unfollow(u.id)
-                        .then(data => {
-                          if (data.resultCode === 0) {
-                            props.unfollow(u.id);
-                          }
-                          props.toggleFollowingProgres(false, u.id);
-                        });
-                        
+
+                      // props.toggleFollowingProgres(true, u.id);
+                      // usersAPI.unfollow(u.id)
+                      //   .then(data => {
+                      //     if (data.resultCode === 0) {
+                      //       props.unfollow(u.id);
+                      //     }
+                      //     props.toggleFollowingProgres(false, u.id);
+                      //   });
+
                     }} className={s.follow}>
                     UnFollow</button>
 
                   : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                    // props.follow(true, u.id);
                     // debugger;
-                    props.toggleFollowingProgres(true, u.id);
+                    props.follow(u.id);
+                    // debugger;
+
                     // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                     //   withCredentials: true,
                     //   headers: { "API-KEY": "ea2b68a0-62d3-4ad3-a991-50d084b8bd82" }
@@ -70,13 +76,22 @@ let Users = (props) => {
                     //       props.follow(u.id);
                     //     }
                     //   });
-                    usersAPI.follow(u.id)
-                      .then(data => {
-                        if (data.resultCode === 0) {
-                          props.follow(u.id);
-                        }
-                        props.toggleFollowingProgres(false, u.id);
-                      });
+                    // props.toggleFollowingProgres(true, u.id);
+                    // usersAPI.follow(u.id)
+                    //   .then(response => {
+                    //     if (response.data.resultCode === 0) {
+                    //       props.follow(u.id);
+                    //     }
+                    //     props.toggleFollowingProgres(false, u.id);
+                    //   });
+                    // props.toggleFollowingProgres(true, u.id);
+                    // usersAPI.follow(u.id)
+                    //   .then(data => {
+                    //     if (data.resultCode === 0) {
+                    //       props.follow(u.id);
+                    //     }
+                    //     props.toggleFollowingProgres(false, u.id);
+                    //   });
                   }} className={s.follow}>Follow</button> //передаємо через пропси діспач функцію follow
                 }
               </div>
