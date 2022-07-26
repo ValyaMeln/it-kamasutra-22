@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { followSuccessAC, setCurrentPageAC, unfollowSuccessAC, toggleFollowingProgres, getUsersThunk } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 // import { usersAPI } from "../../api/api";
 
 
@@ -70,18 +71,20 @@ let mapStateToProps = (state) => {
   }
 }
 
+// let withRedirectComponent = withAuthRedirect(UsersAPIComponent)
 
-export default connect(mapStateToProps, {
-  follow: followSuccessAC,
-  unfollow: unfollowSuccessAC,
-  // setUsers: setUsersAC,
-  setCurrentPage: setCurrentPageAC,
-  // setTotalUsersCount: setUsersTotalCountAC,
-  // toggleIsFetching: toggleIsFetchingAC,
-  toggleFollowingProgres,
-  getUsers: getUsersThunk
+export default withAuthRedirect(connect(mapStateToProps,
+  {
+    follow: followSuccessAC,
+    unfollow: unfollowSuccessAC,
+    // setUsers: setUsersAC,
+    setCurrentPage: setCurrentPageAC,
+    // setTotalUsersCount: setUsersTotalCountAC,
+    // toggleIsFetching: toggleIsFetchingAC,
+    toggleFollowingProgres,
+    getUsers: getUsersThunk
 
-})(UsersAPIComponent);
+  })(UsersAPIComponent));
 
 
 // let mapDispatchToProps = (dispatch) => {

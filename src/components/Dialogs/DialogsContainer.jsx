@@ -3,7 +3,7 @@ import { sendMessageCreator, sendNameCreator, updateNewMessageBodyCreator, updat
 import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-
+import { Navigate } from "react-router-dom";
 
 let mapStateToProps = (state) => {
   return {
@@ -32,7 +32,7 @@ let mapDispatchToProps = (dispatch) => {
 
 let AuthRedirectComponent = withAuthRedirect(Dialogs);
 // let AuthRedirectComponent = (props) => {
-//   if (!this.props.isAuth) return <Navigate to={"/login"} />;
+//   if (!props.isAuth) return <Navigate to={"/login"} />;
 //   return <Dialogs {...props} />
 // }
 

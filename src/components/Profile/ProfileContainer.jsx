@@ -6,6 +6,7 @@ import Profile from './Profile';
 import { getUserProfileThunk } from "../../redux/profile-reducer"
 import { useParams } from 'react-router-dom';
 import { Navigate } from "react-router-dom";
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 
 
@@ -46,7 +47,7 @@ class ProfileContainer extends React.Component {
   // debugger;
   render() {
     // debugger;
-    if (!this.props.isAuth) return <Navigate to={"/login"} />;
+    // if (!this.props.isAuth) return <Navigate to={"/login"} />;
     return (
       <Profile {...this.props} profile={this.props.profile} />
       //  ...this.props - так ми прокинули всі пропси з контейнерної компоненти в функціональну
@@ -54,14 +55,27 @@ class ProfileContainer extends React.Component {
     );
   }
 }
+let AuthRedirectComponent = withAuthRedirect(WithRouterComponent);
+// let AuthRedirectComponent = (props)=>{
+//   // alert(props.isAuth);
+//   if (!props.isAuth) return <Navigate to={"/login"} />;
+//   return <WithRouterComponent {...props}/>
+// }
+
+// let mapStateToPropsFoRedirect = (state) => ({
+//   // profile: state.profilePage.profile,
+//   isAuth: state.login.isAuth
+// }); 
+
+// AuthRedirectComponent = connect(mapStateToPropsFoRedirect)(AuthRedirectComponent);
 
 let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
-  isAuth: state.login.isAuth
-});
+  // isAuth: state.login.isAuth
+}); 
 
 // let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 export default connect(mapStateToProps, {
   getUserProfileThunk,
   // unfollow: unfollowAC,
-})(WithRouterComponent);
+})(AuthRedirectComponent);
