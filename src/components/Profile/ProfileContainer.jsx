@@ -3,8 +3,9 @@ import * as axios from "axios"
 import { connect } from "react-redux";
 
 import Profile from './Profile';
-import { setUserProfile } from "../../redux/profile-reducer"
+import { getUserProfileThunk } from "../../redux/profile-reducer"
 import { useParams } from 'react-router-dom';
+// import { usersAPI } from '../../api/api';
 
 const WithRouterComponent = (props) => {
   const params = useParams();
@@ -29,12 +30,14 @@ class ProfileContainer extends React.Component {
     //   });
 
     //! this.props.userId - наша переданная id из url :)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`)
-      .then(response => {
-        this.props.setUserProfile(response.data);
-        // console.log(this.props.params);
-      }
-      )
+    this.props.getUserProfileThunk(this.props.userId);
+    // usersAPI.getProfile(this.props.userId)
+    // // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`)
+    //   .then(response => {
+    //     this.props.setUserProfile(response.data);
+    //     // console.log(this.props.params);
+    //   }
+    //   )
     
 
   }
@@ -54,6 +57,6 @@ let mapStateToProps = (state) => ({
 });
 
 // let WithUrlDataContainerComponent = withRouter(ProfileContainer);
-export default connect(mapStateToProps, {setUserProfile, 
+export default connect(mapStateToProps, {getUserProfileThunk,
   // unfollow: unfollowAC,
 })(WithRouterComponent);

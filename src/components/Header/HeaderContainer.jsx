@@ -2,8 +2,8 @@ import React from 'react';  // React з папки node_modules
 import Header from './Header';
 import * as axios from "axios"
 import { connect } from "react-redux";
-import { setLoginUserData } from "../../redux/login-reducer";
-import { authMeAPI } from '../../api/api';
+import { getLoginUserDataThunk } from "../../redux/login-reducer";
+import { authAPI } from '../../api/api';
 
 
 class HeaderContainer extends React.Component {
@@ -22,16 +22,16 @@ class HeaderContainer extends React.Component {
     //     }
     //   }
     //   )
-    authMeAPI.getLoginMe()
-      .then(data => {
-        // debugger;
-        if (data.resultCode === 0) {
-          // this.props.setLoginUserData(response.data.data.login); //!Скорочуєм код
-          let { id, email, login } = data.data;
-          this.props.setLoginUserData(id, email, login)
-        }
-      }
-      )
+    this.props.getLoginUserDataThunk();
+    // authAPI.getLoginMe()
+    // .then(response =>{
+    //   if (response.data.resultCode === 0) {
+    //     // this.props.setLoginUserData(response.data.data.login); //!Скорочуєм код
+    //     let { id, email, login } =response.data.data;
+    //     this.props.setLoginUserData(id, email, login)
+    //   }
+    // })
+
 
   }
 
@@ -50,4 +50,4 @@ let mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, { setLoginUserData })(HeaderContainer);
+export default connect(mapStateToProps, { getLoginUserDataThunk })(HeaderContainer);

@@ -1,3 +1,5 @@
+import { authAPI } from "../api/api";
+
 const SET_USER_DATA = 'SET-USER-DATA';   //встановити дані користувача
 // const UNFOLLOW = 'UN-FOLLOW';
 
@@ -41,8 +43,16 @@ const loginReducer = (state = initialState, action) => {
 
 export const setLoginUserData = (id, email, login) => ({ type: SET_USER_DATA, data: { id, email, login } })
 
-
-
+export const getLoginUserDataThunk = () => (dispatch) => {
+  authAPI.getLoginMe()
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        // this.props.setLoginUserData(response.data.data.login); //!Скорочуєм код
+        let { id, email, login } = response.data.data;
+        dispatch(setLoginUserData(id, email, login));
+      }
+    })
+}
 
 export default loginReducer;
 
