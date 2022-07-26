@@ -5,7 +5,9 @@ import { connect } from "react-redux";
 import Profile from './Profile';
 import { getUserProfileThunk } from "../../redux/profile-reducer"
 import { useParams } from 'react-router-dom';
-// import { usersAPI } from '../../api/api';
+import { Navigate } from "react-router-dom";
+
+
 
 const WithRouterComponent = (props) => {
   const params = useParams();
@@ -38,12 +40,13 @@ class ProfileContainer extends React.Component {
     //     // console.log(this.props.params);
     //   }
     //   )
-    
+
 
   }
   // debugger;
   render() {
     // debugger;
+    if (!this.props.isAuth) return <Navigate to={"/login"} />;
     return (
       <Profile {...this.props} profile={this.props.profile} />
       //  ...this.props - так ми прокинули всі пропси з контейнерної компоненти в функціональну
@@ -53,10 +56,12 @@ class ProfileContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-  profile: state.profilePage.profile
+  profile: state.profilePage.profile,
+  isAuth: state.login.isAuth
 });
 
 // let WithUrlDataContainerComponent = withRouter(ProfileContainer);
-export default connect(mapStateToProps, {getUserProfileThunk,
+export default connect(mapStateToProps, {
+  getUserProfileThunk,
   // unfollow: unfollowAC,
 })(WithRouterComponent);

@@ -3,7 +3,7 @@ import s from './Dialogs.module.css';
 
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-
+import { Navigate } from "react-router-dom";
 
 
 
@@ -35,7 +35,7 @@ const Dialogs = (props) => {
     // () => {
     //   props.store.dispatch((0,_redux_dialogs_reducer__WEBPACK_IMPORTED_MODULE_4__.sendMessageCreator)());
     // }
-   
+
   }
 
   let onNewMessageChange = (event) => {
@@ -46,7 +46,7 @@ const Dialogs = (props) => {
     // body => {
     //   props.store.dispatch((0,_redux_dialogs_reducer__WEBPACK_IMPORTED_MODULE_4__.updateNewMessageBodyCreator)(body));
     // }
-    
+
   }
   // ====================================================
   let newName = state.newName;
@@ -60,6 +60,8 @@ const Dialogs = (props) => {
     let name = event.target.value;
     props.updateNewNameCreator(name);
   }
+
+  // if (!props.isAuth) return <Navigate to={"/login"} />; //для того щоб якщо ми не залогінились нас перекидало на сторінку Залогінитись
 
   return (
     <div className={s.dialogs}>
