@@ -4,6 +4,7 @@ import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { Navigate } from "react-router-dom";
+import { compose } from "redux";
 
 let mapStateToProps = (state) => {
   return {
@@ -20,22 +21,29 @@ let mapDispatchToProps = (dispatch) => {
     updateNewMessageBody: (body) => {
       dispatch(updateNewMessageBodyCreator(body));
     },
- 
+
     updateNewNameCreator: (name) => {
       dispatch(updateNewNameCreator(name));
     },
-    sendNameCreator: () => {  
+    sendNameCreator: () => {
       dispatch(sendNameCreator());
     }
   }
 };
+// compose(
+//   connect(mapStateToProps, mapDispatchToProps),
+//   withAuthRedirect)
+//   (Dialogs)
 
-let AuthRedirectComponent = withAuthRedirect(Dialogs);
+// let AuthRedirectComponent = withAuthRedirect(Dialogs);
 // let AuthRedirectComponent = (props) => {
 //   if (!props.isAuth) return <Navigate to={"/login"} />;
 //   return <Dialogs {...props} />
 // }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
+// const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
-export default DialogsContainer;
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect)
+  (Dialogs);

@@ -4,6 +4,7 @@ import { followSuccessAC, setCurrentPageAC, unfollowSuccessAC, toggleFollowingPr
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 // import { usersAPI } from "../../api/api";
 
 
@@ -73,20 +74,24 @@ let mapStateToProps = (state) => {
 
 // let withRedirectComponent = withAuthRedirect(UsersAPIComponent)
 
-export default withAuthRedirect(connect(mapStateToProps,
-  {
-    follow: followSuccessAC,
-    unfollow: unfollowSuccessAC,
-    // setUsers: setUsersAC,
-    setCurrentPage: setCurrentPageAC,
-    // setTotalUsersCount: setUsersTotalCountAC,
-    // toggleIsFetching: toggleIsFetchingAC,
-    toggleFollowingProgres,
-    getUsers: getUsersThunk
+// withAuthRedirect(connect(mapStateToProps,
+//   {
+//     follow: followSuccessAC,
+//     unfollow: unfollowSuccessAC,
+//     // setUsers: setUsersAC,
+//     setCurrentPage: setCurrentPageAC,
+//     // setTotalUsersCount: setUsersTotalCountAC,
+//     // toggleIsFetching: toggleIsFetchingAC,
+//     toggleFollowingProgres,
+//     getUsers: getUsersThunk
 
-  })(UsersAPIComponent));
+//   })(UsersAPIComponent));
 
 
+export default compose(
+  withAuthRedirect,
+  connect(mapStateToProps, { follow: followSuccessAC, unfollow: unfollowSuccessAC, setCurrentPage: setCurrentPageAC, toggleFollowingProgres, getUsers: getUsersThunk })
+)(UsersAPIComponent)
 // let mapDispatchToProps = (dispatch) => {
 //   return {
 //     follow: (userId) => {
