@@ -3,16 +3,17 @@ import s from './ProfileInfo.module.css';
 
 
 class ProfileStatus extends React.Component {
+  // statusInputRef = React.createRef();
 
   state = {
     editMode: false,
-    title: 'Name'
+    status: this.props.status,
   }
 
   activateEditMode = () => {
-    debugger;
+    // debugger;
     // console.log(this.state.editMode);    //false
-    console.log("this:", this);    //false
+    // console.log("this:", this);    
     this.setState({     //setState - асинхронна функція
       editMode: true
     })
@@ -20,12 +21,18 @@ class ProfileStatus extends React.Component {
 
     // this.forceUpdate();  //використовувати тільки виключних випадках
   }
-  deactivateEditMode() {
+  deactivateEditMode = () => {
     this.setState({
       editMode: false
-    })
+    });
+    this.props.updateStatus(this.state.status);
   }
+  onStatusChange = (e) => {
+    this.setState({
+      status: e.currentTarget.value
+    });
 
+  }
   render() {
     // debugger;
     return (
@@ -38,7 +45,14 @@ class ProfileStatus extends React.Component {
         }
         {this.state.editMode &&
           <div>
-            <input value={this.props.status} autoFocus={true} onBlur={this.deactivateEditMode.bind(this)} >{this.props.text}</input>
+            {/* <input autoFocus={true} onBlur={this.deactivateEditMode} value={this.props.status}>{this.props.text}</input> */}
+            <input
+              //  ref={this.statusInputRef} 
+              onChange={this.onStatusChange}
+              autoFocus={true}
+              onBlur={this.deactivateEditMode}
+              value={this.state.status} />
+
           </div>
         }
       </div>
