@@ -3,7 +3,7 @@ import * as axios from "axios"
 import { connect } from "react-redux";
 
 import Profile from './Profile';
-import { getUserProfileThunk } from "../../redux/profile-reducer"
+import { getUserProfileThunk, getStatusThunk, updateStatusThunk } from "../../redux/profile-reducer"
 import { useParams } from 'react-router-dom';
 import { Navigate } from "react-router-dom";
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
@@ -35,6 +35,7 @@ class ProfileContainer extends React.Component {
 
     //! this.props.userId - наша переданная id из url :)
     this.props.getUserProfileThunk(this.props.userId);
+    this.props.getStatusThunk(this.props.userId);
     // usersAPI.getProfile(this.props.userId)
     // // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`)
     //   .then(response => {
@@ -50,7 +51,7 @@ class ProfileContainer extends React.Component {
     // debugger;
     // if (!this.props.isAuth) return <Navigate to={"/login"} />;
     return (
-      <Profile {...this.props} profile={this.props.profile} />
+      <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatusThunk}/>
       //  ...this.props - так ми прокинули всі пропси з контейнерної компоненти в функціональну
 
     );
@@ -74,8 +75,9 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
+  status: state.profilePage.status
   // isAuth: state.login.isAuth
-}); 
+});
 
 // let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 // export default connect(mapStateToProps, {
@@ -84,7 +86,7 @@ let mapStateToProps = (state) => ({
 // })(AuthRedirectComponent);
 
 export default compose(
-  connect(mapStateToProps, { getUserProfileThunk,}),
+  connect(mapStateToProps, { getUserProfileThunk, getStatusThunk, updateStatusThunk }),
   // withAuthRedirect
 )
-(WithRouterComponent)
+  (WithRouterComponent)

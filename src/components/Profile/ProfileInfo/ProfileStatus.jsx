@@ -9,9 +9,10 @@ class ProfileStatus extends React.Component {
     title: 'Name'
   }
 
-  activateEditMode() {
-    // debugger;
+  activateEditMode = () => {
+    debugger;
     // console.log(this.state.editMode);    //false
+    console.log("this:", this);    //false
     this.setState({     //setState - асинхронна функція
       editMode: true
     })
@@ -32,7 +33,7 @@ class ProfileStatus extends React.Component {
       <div>
         {!this.state.editMode &&
           <div>
-            <span onDoubleClick={this.activateEditMode.bind(this)}>{this.props.status}</span>
+            <span onDoubleClick={this.activateEditMode}>{this.props.status}</span>
           </div>
         }
         {this.state.editMode &&
