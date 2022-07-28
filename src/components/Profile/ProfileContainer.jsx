@@ -35,7 +35,11 @@ class ProfileContainer extends React.Component {
 
     //! this.props.userId - наша переданная id из url :)
     this.props.getUserProfileThunk(this.props.userId);
-    this.props.getStatusThunk(this.props.userId);
+    // setTimeout(() => {
+      this.props.getStatusThunk(this.props.userId);
+
+    // }, 1000);
+    // this.props.getStatusThunk(this.props.userId);
     // usersAPI.getProfile(this.props.userId)
     // // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`)
     //   .then(response => {
@@ -51,7 +55,7 @@ class ProfileContainer extends React.Component {
     // debugger;
     // if (!this.props.isAuth) return <Navigate to={"/login"} />;
     return (
-      <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatusThunk}/>
+      <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatusThunk} />
       //  ...this.props - так ми прокинули всі пропси з контейнерної компоненти в функціональну
 
     );
