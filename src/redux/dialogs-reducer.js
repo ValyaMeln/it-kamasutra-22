@@ -22,7 +22,7 @@ let initialState = {
     { id: 4, message: 'А життя – як лампочка: може перегоріти в будь-який момент.' },
     { id: 5, message: 'Є багато речей, на які розумна людина не хотіла б звертати уваги.' },
   ],
-  newMessageBody: ''
+  // newMessageBody: ''
 }
 
 
@@ -37,13 +37,13 @@ const dialogsReducer = (state = initialState, action) => {
         ...state,
         newMessageBody: action.body
       };
- 
+
     }
     case SEND_MESSAGE: {
-      let body = state.newMessageBody;
+      let body = action.newMessageBody;
       return {
         ...state,
-        newMessageBody: '',
+        // newMessageBody: '',
         messageData: [...state.messageData, { id: 6, message: body }]
       };
     }
@@ -75,7 +75,7 @@ const dialogsReducer = (state = initialState, action) => {
 
 //!          Action Creator
 
-export const sendMessageCreator = () => ({ type: SEND_MESSAGE })
+export const sendMessageCreator = (newMessageBody) => ({ type: SEND_MESSAGE, newMessageBody })
 export const updateNewMessageBodyCreator = (body) => {
   return {
     type: UPDATE_NEW_MESSAGE_BODY,
