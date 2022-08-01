@@ -5,14 +5,15 @@ import sidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reducer";
 import loginReducer from "./login-reducer";
 import thunkMiddleware from "redux-thunk";
-
+import { Formik } from 'formik';
 
 let reducers = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   sidebar: sidebarReducer,
   usersPage: usersReducer,
-  login: loginReducer
+  login: loginReducer,
+  // form: Formik
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));

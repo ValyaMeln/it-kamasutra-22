@@ -35,19 +35,8 @@ class ProfileContainer extends React.Component {
 
     //! this.props.userId - наша переданная id из url :)
     this.props.getUserProfileThunk(this.props.userId);
-    // setTimeout(() => {
-      this.props.getStatusThunk(this.props.userId);
 
-    // }, 1000);
-    // this.props.getStatusThunk(this.props.userId);
-    // usersAPI.getProfile(this.props.userId)
-    // // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`)
-    //   .then(response => {
-    //     this.props.setUserProfile(response.data);
-    //     // console.log(this.props.params);
-    //   }
-    //   )
-
+    this.props.getStatusThunk(this.props.userId);
 
   }
   // debugger;
