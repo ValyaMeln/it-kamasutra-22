@@ -21,7 +21,7 @@ const Dialogs = (props) => {
     (messageEl => <Message message={messageEl.message} key={messageEl.id} />)
   )
 
-  let newMessageBody = state.newMessageBody;
+  // let newMessageBody = state.newMessageBody;
 
   // let onSendMessageClick = () => {
   //   props.sendMessage();
@@ -31,25 +31,25 @@ const Dialogs = (props) => {
   //   // }
 
   // }
-  let onSendMessageClick = () => {
-    props.sendMessage();
-    // console.log(props.sendMessage);
-    // () => {
-    //   props.store.dispatch((0,_redux_dialogs_reducer__WEBPACK_IMPORTED_MODULE_4__.sendMessageCreator)());
-    // }
+  // let onSendMessageClick = () => {
+  //   props.sendMessage();
+  //   // console.log(props.sendMessage);
+  //   // () => {
+  //   //   props.store.dispatch((0,_redux_dialogs_reducer__WEBPACK_IMPORTED_MODULE_4__.sendMessageCreator)());
+  //   // }
 
-  }
+  // }
 
-  let onNewMessageChange = (event) => {
+  // let onNewMessageChange = (event) => {
 
-    let body = event.target.value;
-    props.updateNewMessageBody(body);
-    // console.log(props.updateNewMessageBody);
-    // body => {
-    //   props.store.dispatch((0,_redux_dialogs_reducer__WEBPACK_IMPORTED_MODULE_4__.updateNewMessageBodyCreator)(body));
-    // }
+  //   let body = event.target.value;
+  //   props.updateNewMessageBody(body);
+  //   // console.log(props.updateNewMessageBody);
+  //   // body => {
+  //   //   props.store.dispatch((0,_redux_dialogs_reducer__WEBPACK_IMPORTED_MODULE_4__.updateNewMessageBodyCreator)(body));
+  //   // }
 
-  }
+  // }
   // ====================================================
   let newName = state.newName;
 
@@ -106,77 +106,20 @@ const Dialogs = (props) => {
   )
 }
 
-const messagesFormValidate = (values) => {
-  const errors = {};
-  return errors;
-}
-
-// type UserFormObjectType = {
-//   newMessageBody: String
-// }
-// console.log(props.values.newMessageBody);
-const AddMessageForm = (props) => {
-  // const submit = (values: UserFormObjectType, { setSubmitting }: {setSubmitting : (isSubmitting: Boolean) => void }) => {
-
-  //   setTimeout(() => {
-  //     alert(JSON.stringify(values, null, 2));
-  //     setSubmitting(false);
-
-  //   }, 400);
-  // }
-  const addNewMessage = (values) => {
-    // alert(values.newMessageBody);
-    console.log(values);
-    props.sendMessage(values.newMessageBody);
-
-  }
-
-  return (
-    <Formik
-      initialValues={{ newMessageBody: '' }}
-      validate={messagesFormValidate}
-      // onSubmit={submit}
-      onSubmit={(values, { setSubmitting }) => {
-        console.log(values.newMessageBody);
-        setSubmitting(false);
-        // setTimeout(() => {
-        //   alert(JSON.stringify(values, null, 2));
-        //   setSubmitting(false);
-        // }, 400);
-      }}
-    >
-      {({ isSubmitting }) => (
-        <Form>
-          <Field type="text" name="newMessageBody" />
-          {/* <ErrorMessage name="email" component="div" /> */}
-
-          <button type="submit" disabled={isSubmitting}>
-            222Send - Надіслати
-          </button>
-        </Form>
-      )}
-
-    </Formik>
-
-  )
-}
-
 const AddMassageForm = (props) => {
 
   let addNewMessage = (values) => {
-
     props.sendMessage(values);
-
   }
 
   return (
     <Formik
-      initialValues={{
-        newMessageBody: ""
-      }}
+      initialValues={{ newMessageBody: "" }}
       onSubmit={(values, { resetForm }) => {
         addNewMessage(values.newMessageBody);
         resetForm({ values: '' });
+        // resetForm({ values: { newMessageBody: '111' } });
+
       }
       }
     >
@@ -185,7 +128,8 @@ const AddMassageForm = (props) => {
           <div>
             <Field
               name={'newMessageBody'}
-              as={'textarea'}
+              // as={'textarea'}
+              component={'textarea'}
               placeholder={'Введіть повідомлення'}
             />
           </div>
@@ -196,5 +140,7 @@ const AddMassageForm = (props) => {
     </Formik>
   )
 }
+
+
 
 export default Dialogs;

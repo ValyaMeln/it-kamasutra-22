@@ -13,23 +13,25 @@ const MyPosts = (props) => {
 
   let newPostElement = React.createRef();
 
-  let onAddPost = () => {
-    props.addPost();
-  };
+  // let onAddPost = () => {
+  //   props.addPost();
+  // };
 
-  let onPostChange = () => {    //те що ми вводимо в textarea, але його не видно
-    let text = newPostElement.current.value;
-    props.updateNewPostText(text);
+  // let onPostChange = () => {    //те що ми вводимо в textarea, але його не видно
+  //   let text = newPostElement.current.value;
+  //   props.updateNewPostText(text);
 
-  }
+  // }
 
-
+  // let onAddPostForm = (value) => {
+  //   props.addPost();
+  // };
   return (
     <div>
       <h3>My posts</h3>
       <div className={s.wrapper_textarea}>
-        <UserForm />
-        <div>
+        <UserForm onAddPost={props.addPost} />
+        {/* <div>
           <textarea
             onChange={onPostChange}
             ref={newPostElement}
@@ -37,7 +39,7 @@ const MyPosts = (props) => {
             value={props.newPostText}
           />
         </div>
-        <button onClick={onAddPost} className={s.button}>Add Post</button>
+        <button onClick={onAddPost} className={s.button}>Add Post11111</button> */}
       </div>
       <ul className={s.posts}>
         {postElements}
@@ -47,46 +49,34 @@ const MyPosts = (props) => {
 }
 
 const UserForm = (props) => {
-  console.log("RERENDER");
-  // debugger;
+
+  let onAddPostNameForm = (values) => {
+    props.onAddPost(values);
+  };
+
   return (
     <div>
-      <h1 className={s.header}>
-        LOGIN PAGE
-      </h1>
       <Formik
-        initialValues={{
-          email: "",
-          password: "",
-          rememberMe: false
-        }}
-        // validate={validateLoginForm}
-        // validationSchema={validationSchemaLoginForm}
-        onSubmit={(values) => {
-          console.log(values)
+        initialValues={{ newPostName: "" }}
+        onSubmit={(values, { resetForm }) => {
+          onAddPostNameForm(values.newPostName);
+          resetForm({ values: '' });
+          console.log(values);
         }}
       >
         {() => (
           <Form>
             <div>
               <Field
-                name={'email'}
-                type={'text'}
-                placeholder={'E-mail'} />
+                className={s.textarea}
+                name={'newPostName'}
+                component={'textarea'}
+                placeholder={'Введіть новий пост'}
+              />
             </div>
-            <ErrorMessage name="email" component="div" />
-
-            <div>
-              <Field
-                name={'password'}
-                type={'password'}
-                placeholder={'Password'} />
-            </div>
-            <ErrorMessage name="password" component="div" />
-
-
-
-            <button type="submit">Add Post</button>
+            <button type={'submit'} className={s.button}>
+              Add Post
+            </button>
           </Form>
         )}
       </Formik>
