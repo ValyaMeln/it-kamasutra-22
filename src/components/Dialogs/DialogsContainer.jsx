@@ -18,15 +18,15 @@ let mapDispatchToProps = (dispatch) => {
     sendMessage: (newMessageBody) => {
       dispatch(sendMessageCreator(newMessageBody));
     },
-    updateNewMessageBody: (body) => {
-      dispatch(updateNewMessageBodyCreator(body));
-    },
+    // updateNewMessageBody: (body) => {
+    //   dispatch(updateNewMessageBodyCreator(body));
+    // },
 
-    updateNewNameCreator: (name) => {
-      dispatch(updateNewNameCreator(name));
-    },
-    sendNameCreator: () => {
-      dispatch(sendNameCreator());
+    // updateNewNameCreator: (name) => {
+    //   dispatch(updateNewNameCreator(name));
+    // },
+    sendNameCreator: (newName) => {
+      dispatch(sendNameCreator(newName));
     }
   }
 };

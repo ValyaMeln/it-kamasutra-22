@@ -3,7 +3,7 @@ import s from './Dialogs.module.css';
 
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import { Navigate } from "react-router-dom";
+
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { type } from "@testing-library/user-event/dist/type";
 
@@ -93,14 +93,16 @@ const Dialogs = (props) => {
 
       </ul>
       <div className={s.wrapper_textarea}>
-        <textarea
+        {/* <textarea
           value={newName}
           onChange={onNewNameChange}
           placeholder="Ведіть ім'я"
           className={s.textarea}>
 
         </textarea>
-        <button onClick={onSendNameClick} className={s.button}>Додати Ім'я Користувача </button>
+        <button onClick={onSendNameClick} className={s.button}>Додати Ім'я Користувача </button> */}
+        <AddNameForm sendName={props.sendNameCreator} />
+
       </div>
     </div>
   )
@@ -141,6 +143,41 @@ const AddMassageForm = (props) => {
   )
 }
 
+
+const AddNameForm = (props) => {
+
+  let addNewName = (values) => {
+    props.sendName(values);
+  }
+
+  return (
+    <Formik
+      initialValues={{ newName: "" }}
+      onSubmit={(values, { resetForm }) => {
+        addNewName(values.newName);
+        resetForm({ values: '' });
+        // resetForm({ values: { newName: '111' } });
+
+      }
+      }
+    >
+      {() => (
+        <Form>
+          <div>
+            <Field
+              name={'newName'}
+              // as={'textarea'}
+              component={'textarea'}
+              placeholder={'Ведіть ім\'я'}
+            />
+          </div>
+
+          <button type={'submit'}>Додати Ім'я Користувача</button>
+        </Form>
+      )}
+    </Formik>
+  )
+}
 
 
 export default Dialogs;

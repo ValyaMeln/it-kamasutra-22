@@ -14,7 +14,7 @@ let initialState = {
     { id: 6, name: 'Kevin', avatar: 'https://stihi.ru/pics/2021/01/05/7907.jpg' },
     { id: 7, name: 'Amanda', avatar: 'https://n1s2.hsmedia.ru/41/03/97/410397009a945f036b79cd0491208f34/728x485_1_4acce6d5a8c1860d79dbd764b6f0f028@5000x3333_0xac120003_8406445731619721756.jpg' },
   ],
-  newName: '',
+  // newName: '',
   messageData: [
     { id: 1, message: 'Ті, що сплять, не роблять помилок.' },
     { id: 2, message: 'Дія не завжди приведе до щастя, але до щастя привести може лише дія.' },
@@ -32,13 +32,13 @@ const dialogsReducer = (state = initialState, action) => {
 
 
   switch (action.type) {
-    case UPDATE_NEW_MESSAGE_BODY: {
-      return {
-        ...state,
-        newMessageBody: action.body
-      };
+    // case UPDATE_NEW_MESSAGE_BODY: {
+    //   return {
+    //     ...state,
+    //     newMessageBody: action.body
+    //   };
 
-    }
+    // }
     case SEND_MESSAGE: {
       let body = action.newMessageBody;
       return {
@@ -47,19 +47,19 @@ const dialogsReducer = (state = initialState, action) => {
         messageData: [...state.messageData, { id: 6, message: body }]
       };
     }
-    case UPDATE_NEW_NAME: {
-      return {
-        ...state,
-        newName: action.name
-      };
-      // stateCopy.newName = action.name;
-      // return stateCopy;
-    }
+    // case UPDATE_NEW_NAME: {
+    //   return {
+    //     ...state,
+    //     newName: action.name
+    //   };
+    //   // stateCopy.newName = action.name;
+    //   // return stateCopy;
+    // }
     case SEND_NAME: {
-      let name = state.newName;
+      let name = action.newName;
       return {
         ...state,
-        newName: '',
+        // newName: '',
         dialogsData: [...state.dialogsData, { id: 8, name: name, avatar: 'https://n1s2.hsmedia.ru/41/03/97/410397009a945f036b79cd0491208f34/728x485_1_4acce6d5a8c1860d79dbd764b6f0f028@5000x3333_0xac120003_8406445731619721756.jpg' }]
       };
 
@@ -76,20 +76,20 @@ const dialogsReducer = (state = initialState, action) => {
 //!          Action Creator
 
 export const sendMessageCreator = (newMessageBody) => ({ type: SEND_MESSAGE, newMessageBody })
-export const updateNewMessageBodyCreator = (body) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_BODY,
-    body: body
-  }
-}
+// export const updateNewMessageBodyCreator = (body) => {
+//   return {
+//     type: UPDATE_NEW_MESSAGE_BODY,
+//     body: body
+//   }
+// }
 
-export const sendNameCreator = () => ({ type: SEND_NAME })
-export const updateNewNameCreator = (name) => {
-  return {
-    type: UPDATE_NEW_NAME,
-    name: name
-  }
-}
+export const sendNameCreator = (newName) => ({ type: SEND_NAME, newName })
+// export const updateNewNameCreator = (name) => {
+//   return {
+//     type: UPDATE_NEW_NAME,
+//     name: name
+//   }
+// }
 
 
 export default dialogsReducer;
