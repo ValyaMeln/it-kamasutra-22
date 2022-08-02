@@ -9,13 +9,13 @@ const SET_USER_DATA = 'SET-USER-DATA';   //встановити дані кор�
 
 let initialState = {
 
-  id: null,
+  userId: null,
   email: null,
   login: null,
 
   isAuth: false,   //для того щоб вивело повідомлення залогінились ми чи ні
 
-  isFetching: false
+  // isFetching: false
 
 
 }
@@ -28,7 +28,7 @@ const loginReducer = (state = initialState, action) => {
       // debugger;
       return {
         ...state,
-        ...action.data,
+        ...action.payload,
         isAuth: true
 
       };
@@ -41,7 +41,8 @@ const loginReducer = (state = initialState, action) => {
 
 //!          Action Creator(AC)
 
-export const setLoginUserData = (id, email, login) => ({ type: SET_USER_DATA, data: { id, email, login } })
+export const setLoginUserData = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, payload: 
+  { userId, email, login, isAuth } })
 
 export const getLoginUserDataThunk = () => (dispatch) => {
   authAPI.getLoginMe()
@@ -49,7 +50,27 @@ export const getLoginUserDataThunk = () => (dispatch) => {
       if (response.data.resultCode === 0) {
         // this.props.setLoginUserData(response.data.data.login); //!Скорочуєм код
         let { id, email, login } = response.data.data;
-        dispatch(setLoginUserData(id, email, login));
+        dispatch(setLoginUserData(id, email, login, true));
+      }
+    })
+}
+
+export const loginThunk = (email, password, rememberMe) => (dispatch) => {
+  authAPI.login(email, password, rememberMe)
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        dispatch(getLoginUserDataThunk())
+
+      }
+    })
+}
+
+export const logoutThunk = () => (dispatch) => {
+  authAPI.logout()
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        dispatch(setLoginUserData(null, null, null, false));
+
       }
     })
 }
