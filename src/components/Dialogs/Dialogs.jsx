@@ -157,7 +157,6 @@ const AddNameForm = (props) => {
         addNewName(values.newName);
         resetForm({ values: '' });
         // resetForm({ values: { newName: '111' } });
-
       }
       }
     >
