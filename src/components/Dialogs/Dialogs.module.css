@@ -34,3 +34,12 @@
   height: 50px;
   border-radius:50%;
 }
+.spanError{
+  color:red;
+  font-size: 14px;
+  font-weight: bold;
+}
+.textareaError{
+border: 2px solid red;
+box-shadow: 0px 0px 49px 1px #e00b0b;
+}

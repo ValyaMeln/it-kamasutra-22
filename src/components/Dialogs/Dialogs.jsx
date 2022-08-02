@@ -6,7 +6,7 @@ import DialogItem from "./DialogItem/DialogItem";
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { type } from "@testing-library/user-event/dist/type";
-
+import * as Yup from 'yup';
 
 
 const Dialogs = (props) => {
@@ -121,19 +121,25 @@ const AddMassageForm = (props) => {
         addNewMessage(values.newMessageBody);
         resetForm({ values: '' });
         // resetForm({ values: { newMessageBody: '111' } });
-
-      }
-      }
+      }}
+      validationSchema={Yup.object({
+        newMessageBody: Yup.string()
+          .min(5, 'Занадто короткий запис!')
+          .max(20, 'Дозволяэться Не більше 20 символів')
+          .required('Обов\'язкове поле!'),
+      })}
     >
-      {() => (
+      {({ errors, touched }) => (
         <Form>
           <div>
             <Field
+            className={errors.newMessageBody ? s.textareaError : s.textarea}
               name={'newMessageBody'}
               // as={'textarea'}
               component={'textarea'}
               placeholder={'Введіть повідомлення'}
             />
+            <ErrorMessage className={s.spanError} name="newMessageBody" component="span" />
           </div>
 
           <button type={'submit'}>Send - Надіслати</button>
@@ -157,18 +163,27 @@ const AddNameForm = (props) => {
         addNewName(values.newName);
         resetForm({ values: '' });
         // resetForm({ values: { newName: '111' } });
-      }
-      }
+      }}
+      validationSchema={Yup.object({
+        newName: Yup.string()
+          .min(5, 'Занадто короткий запис!')
+          .max(20, 'Дозволяэться Не більше 20 символів')
+          .required('Обов\'язкове поле!'),
+      })}
     >
-      {() => (
+      {({ errors, touched }) => (
         <Form>
           <div>
             <Field
+              className={errors.newName ? s.textareaError : s.textarea}
               name={'newName'}
               // as={'textarea'}
               component={'textarea'}
               placeholder={'Ведіть ім\'я'}
             />
+            {errors.newName && touched.newName && (
+              <div className={s.spanError}>{errors.newName}</div>
+            )}
           </div>
 
           <button type={'submit'}>Додати Ім'я Користувача</button>
