@@ -17,3 +17,9 @@
   /* float: right; */
   /* font-size: 24px;
 }  */
+.spanError{
+  color: red;
+}
+.textareaError{
+  border: 2px solid red;
+}

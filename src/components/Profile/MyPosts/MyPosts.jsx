@@ -3,7 +3,7 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { maxLength30, maxLengthCreator, requiredFild } from '../../../validatorsUtils/validation/validators';
+
 
 
 
@@ -19,9 +19,7 @@ const MyPosts = (props) => {
     <div>
       <h3>My posts</h3>
       <div className={s.wrapper_textarea}>
-        {/* <Basic /> */}
-        {/* <UserForm onAddPost={props.addPost} /> */}
-        <UserForm2 onAddPost={props.addPost} />
+        <UserForm onAddPost={props.addPost} />
         {/* <div>
           <textarea
             onChange={onPostChange}
@@ -39,12 +37,11 @@ const MyPosts = (props) => {
   );
 }
 
-const UserForm = (props) => {
+const UserForm2 = (props) => {
 
   let onAddPostNameForm = (values) => {
     props.onAddPost(values);
   };
-  const maxLength10 = maxLengthCreator(10);
   return (
     <div>
       <Formik
@@ -90,10 +87,9 @@ const UserForm = (props) => {
                 component={'textarea'}
                 placeholder={'Введіть новий пост'}
 
-              // validate={[requiredFild, maxLengthCreator(10)]}
               />
             </div>
-            <ErrorMessage name="newPostName" component="span" />
+            <ErrorMessage  name="newPostName" component="span" />
 
             <button type={'submit'} className={s.button}>
               Add Post
@@ -105,7 +101,7 @@ const UserForm = (props) => {
     </div>
   );
 }
-const UserForm2 = (props) => {
+const UserForm = (props) => {
 
   let onAddPostNameForm = (values) => {
     props.onAddPost(values);
@@ -120,26 +116,25 @@ const UserForm2 = (props) => {
           resetForm({ values: '' });
           console.log(values);
         }}
-
         validationSchema={Yup.object({
           newPostName: Yup.string()
-            .min(2, 'Too Short Занадто короткий!')
-            .max(15, 'Must be 15 characters or less Має бути 15 символів або менше')
-            .required('Required Обов\'язковий'),
-
+            .min(2, 'Занадто короткий запис!')
+            .max(20, 'Має бути 20 символів або менше')
+            .required('Обов\'язкове поле'),
         })}
       >
         {({ errors, touched }) => (
           <Form>
             <div>
               <Field
-                className={s.textarea}
+                // className={s.textarea}
+                className={errors.newPostName ? s.textareaError : s.textarea}
                 name={'newPostName'}
                 component={'textarea'}
                 placeholder={'Введіть новий пост'}
               />
               {errors.newPostName && touched.newPostName && (
-                <span style={{ color: "red" }}>{errors.newPostName}</span>
+                <span className={s.spanError}>{errors.newPostName}</span>
               )}
             </div>
             {/* <ErrorMessage name="newPostName" component="span" /> */}
@@ -155,36 +150,36 @@ const UserForm2 = (props) => {
   );
 }
 
-function validate(value) {
-  let error;
-  if (value.length > 3) {
-    error = "max digits 3";
-  } else if (parseInt(value) > 100 || parseInt(value) < 1) {
-    error = "range is 1 to 100";
-  }
-  return error;
-}
-const Basic = () => (
-  <div>
-    <Formik
-      initialValues={{
-        num: ""
-      }}
-      onSubmit={(values) => {
-        // same shape as initial values
-        console.log(values);
-      }}
-    >
-      {({ errors, touched }) => (
-        <Form>
-          <Field type="number" name="num" validate={validate} />
-          {errors.num && touched.num && (
-            <div style={{ color: "red" }}>{errors.num}</div>
-          )}
-        </Form>
-      )}
-    </Formik>
-  </div>
-);
+// function validate(value) {
+//   let error;
+//   if (value.length > 3) {
+//     error = "max digits 3";
+//   } else if (parseInt(value) > 100 || parseInt(value) < 1) {
+//     error = "range is 1 to 100";
+//   }
+//   return error;
+// }
+// const Basic = () => (
+//   <div>
+//     <Formik
+//       initialValues={{
+//         num: ""
+//       }}
+//       onSubmit={(values) => {
+//         // same shape as initial values
+//         console.log(values);
+//       }}
+//     >
+//       {({ errors, touched }) => (
+//         <Form>
+//           <Field type="number" name="num" validate={validate} />
+//           {errors.num && touched.num && (
+//             <div style={{ color: "red" }}>{errors.num}</div>
+//           )}
+//         </Form>
+//       )}
+//     </Formik>
+//   </div>
+// );
 
 export default MyPosts;

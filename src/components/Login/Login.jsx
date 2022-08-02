@@ -44,26 +44,35 @@ const LoginForm = (props) => {
           console.log(values)
         }}
       >
-        {() => (
+        {({ errors, touched }) => (
           <Form>
             <div>
               <Field
+                className={errors.email ? s.textareaError : s.textarea}
                 name={'email'}
                 type={'text'}
+                component={'input'}
                 placeholder={'E-mail'} />
             </div>
-            <ErrorMessage name="email" component="div" />
+            {errors.email && touched.email && (
+                <span className={s.spanError}>{errors.email}</span>
+              )}
+            {/* <ErrorMessage className={s.spanError} name="email" component="span" /> */}
 
             <div>
-              <Field
+              <Field className={`${errors.password ? s.textareaError : s.textarea}`}
                 name={'password'}
+                component={'input'}
                 type={'password'}
                 placeholder={'Password'} />
+              {errors.password && touched.password && (
+                <div className={s.spanError}>{errors.password}</div>
+              )}
             </div>
-            <ErrorMessage name="password" component="div" />
-
+          
             <div>
               <Field
+                className={errors.rememberMe ? s.textareaError : s.textarea}
                 type={'checkbox'}
                 name={'rememberMe'}
                 id='rememberMe' />
@@ -74,11 +83,13 @@ const LoginForm = (props) => {
           </Form>
         )}
       </Formik>
-      
+
 
     </div>
   );
 }
+
+
 
 const Login = (props) => {
   const onSubmit = (formData) => {
@@ -87,6 +98,7 @@ const Login = (props) => {
   return (
     <div>
       <LoginForm onSubmit={onSubmit} />
+      {/* <LoginForm /> */}
     </div>
   );
 }
