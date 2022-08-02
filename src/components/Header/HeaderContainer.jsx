@@ -2,8 +2,8 @@ import React from 'react';  // React з папки node_modules
 import Header from './Header';
 import * as axios from "axios"
 import { connect } from "react-redux";
-import { getLoginUserDataThunk } from "../../redux/login-reducer";
-import { authAPI } from '../../api/api';
+import { getLoginUserDataThunk, logoutThunk } from "../../redux/login-reducer";
+// import { authAPI } from '../../api/api';
 
 
 class HeaderContainer extends React.Component {
@@ -23,6 +23,7 @@ class HeaderContainer extends React.Component {
     //   }
     //   )
     this.props.getLoginUserDataThunk();
+    this.props.logoutThunk();
     // authAPI.getLoginMe()
     // .then(response =>{
     //   if (response.data.resultCode === 0) {
@@ -50,4 +51,4 @@ let mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, { getLoginUserDataThunk })(HeaderContainer);
+export default connect(mapStateToProps, { getLoginUserDataThunk, logoutThunk })(HeaderContainer);
