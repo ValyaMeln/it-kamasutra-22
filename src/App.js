@@ -82,4 +82,6 @@ export default compose(
   connect(mapStateToProps, { initializeApp }))
   ( App );
 
-
+  // export default 
+  //   connect(mapStateToProps, { initializeApp })
+  //   ( App );
