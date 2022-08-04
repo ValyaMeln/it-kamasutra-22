@@ -28,6 +28,8 @@ const validationSchemaLoginForm = Yup.object().shape({
     .required("Required 2 Обов\'язкове поле 2")
 });
 
+
+
 const LoginForm = (props) => {
   console.log("RERENDER");
   // debugger;
@@ -44,14 +46,22 @@ const LoginForm = (props) => {
         }}
         validate={validateLoginForm}
         validationSchema={validationSchemaLoginForm}
-        onSubmit={(values) => {
-          console.log(values)
-          props.loginThunk(values.email, values.password, values.rememberMe)
+        // onSubmit={(values) => {
+        //   console.log(values)
+        //   props.loginThunk(values.email, values.password, values.rememberMe)
+        // }}
+        // onSubmit={onSubmit}
+        onSubmit={(values, { setSubmitting, setStatus }) => {  // други параметром додаєм  setStatus
+          // debugger;
+          props.loginThunk(values.email, values.password, values.rememberMe, setStatus);  // и сюда  setStatus - (це метод форміка)
+          setSubmitting(false);
         }}
+
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, isValid, dirty, status }) => (
           <Form>
             <div>
+
               <Field
                 className={errors.email ? s.textareaError : s.textarea}
                 name={'email'}
@@ -83,7 +93,8 @@ const LoginForm = (props) => {
                 id='rememberMe' />
               <label htmlFor={'rememberMe'}> remember me Запам'ятати мене </label>
             </div>
-
+            <div >{status ? <div className={s.error}>{status}</div> : null}
+            </div>
             <button type="submit">Login</button>
           </Form>
         )}
@@ -102,7 +113,7 @@ const Login = (props) => {
   //   props.loginThunk(formData.email, formData.password, formData.rememberMe)
   // }
   if (props.isAuth) {
-    return <Navigate to={"/profile"} />
+    return <Navigate to={"/profile"} />     //замість Redirect
   }
   return (
     <div>
