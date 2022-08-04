@@ -50,7 +50,6 @@ const LoginForm = (props) => {
         //   console.log(values)
         //   props.loginThunk(values.email, values.password, values.rememberMe)
         // }}
-        // onSubmit={onSubmit}
         onSubmit={(values, { setSubmitting, setStatus }) => {  // други параметром додаєм  setStatus
           // debugger;
           props.loginThunk(values.email, values.password, values.rememberMe, setStatus);  // и сюда  setStatus - (це метод форміка)
@@ -93,7 +92,8 @@ const LoginForm = (props) => {
                 id='rememberMe' />
               <label htmlFor={'rememberMe'}> remember me Запам'ятати мене </label>
             </div>
-            <div >{status ? <div className={s.error}>{status}</div> : null}
+            <div >
+              {status ? <div className={s.error}>{status}</div> : null}
             </div>
             <button type="submit">Login</button>
           </Form>

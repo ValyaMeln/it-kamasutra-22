@@ -1,22 +1,26 @@
 import React from 'react';  // React з папки node_modules
-import * as axios from "axios"
+// import * as axios from "axios"
 import { connect } from "react-redux";
 
 import Profile from './Profile';
 import { getUserProfileThunk, getStatusThunk, updateStatusThunk } from "../../redux/profile-reducer"
-import { useParams } from 'react-router-dom';
-import { Navigate } from "react-router-dom";
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { unstable_HistoryRouter, useParams } from 'react-router-dom';
+// import { Navigate } from "react-router-dom";
+// import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { Navigate } from "react-router-dom";
+
 
 
 
 const WithRouterComponent = (props) => {
   const params = useParams();
+  // debugger;
   return (
     <ProfileContainer
       {...props} // Пропсы из mapStateToProps, {setUserProfile}
-      userId={params.userId ? params.userId : '2'} // Если такого userId нету, то отобразить 2
+      userId={params.userId ? params.userId : props.loginUserId} // Если такого userId нету, то отобразить 2
+      // userId={params}
     />
   );
 }
@@ -25,13 +29,17 @@ const WithRouterComponent = (props) => {
 class ProfileContainer extends React.Component {
 
   componentDidMount() {
-    // debugger
+    // debugger;
     // this.props.toggleIsFetching(true);
     // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
     //   .then(response => {
     //     this.props.setUserProfile(response.data);
 
     //   });
+
+    // if(!this.props.userId){
+    //   // this.props.history.push("/login")
+    // }
 
     //! this.props.userId - наша переданная id из url :)
     this.props.getUserProfileThunk(this.props.userId);
@@ -44,7 +52,10 @@ class ProfileContainer extends React.Component {
     // debugger;
     // if (!this.props.isAuth) return <Navigate to={"/login"} />;
     return (
-      <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatusThunk} />
+      <Profile {...this.props}
+        profile={this.props.profile}
+        status={this.props.status}
+        updateStatus={this.props.updateStatusThunk} />
       //  ...this.props - так ми прокинули всі пропси з контейнерної компоненти в функціональну
 
     );
@@ -68,8 +79,10 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
-  status: state.profilePage.status
-  // isAuth: state.login.isAuth
+  status: state.profilePage.status,
+  loginUserId: state.login.userId,
+
+  isAuth: state.login.isAuth
 });
 
 // let WithUrlDataContainerComponent = withRouter(ProfileContainer);
@@ -83,3 +96,4 @@ export default compose(
   // withAuthRedirect
 )
   (WithRouterComponent)
+

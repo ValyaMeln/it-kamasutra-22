@@ -22,7 +22,7 @@ class HeaderContainer extends React.Component {
     //     }
     //   }
     //   )
-    this.props.getLoginUserDataThunk();
+    // this.props.getLoginUserDataThunk();
     this.props.logoutThunk();
     // authAPI.getLoginMe()
     // .then(response =>{
@@ -51,4 +51,4 @@ let mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, { getLoginUserDataThunk, logoutThunk })(HeaderContainer);
+export default connect(mapStateToProps, { logoutThunk })(HeaderContainer);

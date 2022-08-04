@@ -6,6 +6,7 @@ import usersReducer from "./users-reducer";
 import loginReducer from "./login-reducer";
 import thunkMiddleware from "redux-thunk";
 import { Formik } from 'formik';
+import appReducer from "./app-reducer";
 
 let reducers = combineReducers({
   profilePage: profileReducer,
@@ -13,6 +14,7 @@ let reducers = combineReducers({
   sidebar: sidebarReducer,
   usersPage: usersReducer,
   login: loginReducer,
+  app: appReducer
   // form: Formik
 });
 

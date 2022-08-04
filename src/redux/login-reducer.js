@@ -48,14 +48,15 @@ export const setLoginUserData = (userId, email, login, isAuth) => ({
 })
 
 export const getLoginUserDataThunk = () => (dispatch) => {
-  authAPI.getLoginMe()
+ return authAPI.getLoginMe()
     .then(response => {
       if (response.data.resultCode === 0) {
         // this.props.setLoginUserData(response.data.data.login); //!Скорочуєм код
         let { id, email, login } = response.data.data;
         dispatch(setLoginUserData(id, email, login, true));
       }
-    })
+    });
+
 }
 
 export const loginThunk = (email, password, rememberMe, setStatus) => (dispatch) => {
@@ -65,14 +66,9 @@ export const loginThunk = (email, password, rememberMe, setStatus) => (dispatch)
       if (response.data.resultCode === 0) {
         dispatch(getLoginUserDataThunk())
       }
-      // if (response.data.resultCode === 0) {
-      //   dispatch(getAuthAboutUs());
-      // }
       else {
-        // setFieldValue(response.messages.join(" ")) /*- сюда приходит то сообщение которое соответствует ошибке */
-        // console.log(response.messages);
-        // setStatus({ error: 'Unable to login with the provided credentials.'});
-        setStatus(response.data.messages)
+        setStatus(response.data.messages) //сюди приходе повідомлення яке відповідає помилці
+        // setStatus(response.data.messages.length > 0 ? response.data.messages[0] : "Some error")
       }
     })
 }
