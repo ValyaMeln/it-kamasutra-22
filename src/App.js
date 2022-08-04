@@ -27,7 +27,7 @@ class App extends Component {
       return <Preloader />
     }
     // debugger;
-   
+
     return (
       // <BrowserRouter>
       <div className='app-wrapper'>
@@ -80,7 +80,7 @@ let mapStateToProps = (state) => ({
 });
 export default compose(
   connect(mapStateToProps, { initializeApp }))
-  ( App );
+  (App);
 
   // export default 
   //   connect(mapStateToProps, { initializeApp })

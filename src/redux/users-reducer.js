@@ -8,6 +8,7 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS';
+// const FAKE = 'FAKE ';
 
 // const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS';
 
@@ -18,14 +19,15 @@ let initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: true,    //додали щоб показати картинку загрузки, коли йде API запит
-  followingInProgress: []    //для того щоб наприклад при нажитті на кнопку пішов запит і нічого не відбулось, щоб користувач не неклацав багато раз одне і теж, щоб кнопка стала не активною
-
+  followingInProgress: [] ,   //для того щоб наприклад при нажитті на кнопку пішов запит і нічого не відбулось, щоб користувач не неклацав багато раз одне і теж, щоб кнопка стала не активною
+  fake:10
 }
 
 
 const usersReducer = (state = initialState, action) => {
 
   switch (action.type) {
+    case "FAKE": return{...state, fake: state.fake + 1}
     case FOLLOW: {
       return {
         ...state,

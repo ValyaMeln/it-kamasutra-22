@@ -5,7 +5,7 @@ import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
-import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../redux/users-selectors";
+import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers, getUsersSelector, getUsersSuper, getUsersSuperSelector } from "../../redux/users-selectors";
 // import { usersAPI } from "../../api/api";
 
 
@@ -42,6 +42,7 @@ class UsersAPIComponent extends React.Component {
     //   });
   }
   render() {
+    console.log("RENDER USER")
 
     return <>
       {/* {this.props.isFetching ? <img src={preloader} alt={preloader} /> : null} */}
@@ -74,8 +75,10 @@ class UsersAPIComponent extends React.Component {
 // }
 
 let mapStateToProps = (state) => {
+  console.log("map State To Props");
   return {
-    users: getUsers(state),
+    users: getUsersSelector(state),
+    // users: getUsersSuperSelector(state),
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),
     currentPage: getCurrentPage(state),
