@@ -8,9 +8,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './redux/redux-store';
 
-setInterval(() => {
-  store.dispatch({ type: "FAKE" })
-}, 1000);
+// setInterval(() => {
+//   store.dispatch({ type: "FAKE" })
+// }, 1000);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // let rerenderEntireTree = (state) => {
