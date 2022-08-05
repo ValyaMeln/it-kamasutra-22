@@ -19,15 +19,15 @@ let initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: true,    //додали щоб показати картинку загрузки, коли йде API запит
-  followingInProgress: [] ,   //для того щоб наприклад при нажитті на кнопку пішов запит і нічого не відбулось, щоб користувач не неклацав багато раз одне і теж, щоб кнопка стала не активною
-  fake:10
+  followingInProgress: [],   //для того щоб наприклад при нажитті на кнопку пішов запит і нічого не відбулось, щоб користувач не неклацав багато раз одне і теж, щоб кнопка стала не активною
+  fake: 10
 }
 
 
 const usersReducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case "FAKE": return{...state, fake: state.fake + 1}
+    // case "FAKE": return{...state, fake: state.fake + 1}
     case FOLLOW: {
       return {
         ...state,
@@ -102,30 +102,30 @@ export const toggleIsFetchingAC = (isFetching) => ({ type: TOGGLE_IS_FETCHING, i
 export const toggleFollowingProgres = (isFetching, userId) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId })
 
 export const getUsersThunk = (currentPage, pageSize) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setCurrentPageAC(currentPage));  //<<<-----  вот чего не хватало в видео
     dispatch(toggleIsFetchingAC(true));
 
-    usersAPI.getUsers(currentPage, pageSize).then(data => {
-
-      dispatch(toggleIsFetchingAC(false));
-      dispatch(setUsersAC(data.items));
-      dispatch(setUsersTotalCountAC(data.totalCount));
-    });
+    let data = await usersAPI.getUsers(currentPage, pageSize);
+    // .then(data => {
+    dispatch(toggleIsFetchingAC(false));
+    dispatch(setUsersAC(data.items));
+    dispatch(setUsersTotalCountAC(data.totalCount));
+    // });
   }
 }
 
 export const follow = (userId) => {
-  return (dispatch) => {
-
+  return async (dispatch) => {
     dispatch(toggleFollowingProgres(true, userId));
-    usersAPI.follow(userId)
-      .then(response => {
-        if (response.data.resultCode === 0) {
-          dispatch(followSuccessAC(userId));
-        }
-        dispatch(toggleFollowingProgres(false, userId));
-      });
+
+    let response = await usersAPI.follow(userId)
+    // .then(response => {
+    if (response.data.resultCode === 0) {
+      dispatch(followSuccessAC(userId));
+    }
+    dispatch(toggleFollowingProgres(false, userId));
+    // });
 
     // dispatch(toggleFollowingProgres(true, userId));
     // usersAPI.follow(userId)
@@ -139,15 +139,15 @@ export const follow = (userId) => {
 }
 
 export const unfollow = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleFollowingProgres(true, userId));
-    usersAPI.unfollow(userId)
-      .then(response => {
-        if (response.data.resultCode === 0) {
-          dispatch(unfollowSuccessAC(userId));
-        }
-        dispatch(toggleFollowingProgres(false, userId));
-      });
+    let response = await usersAPI.unfollow(userId);
+    // .then(response => {
+    if (response.data.resultCode === 0) {
+      dispatch(unfollowSuccessAC(userId));
+    }
+    dispatch(toggleFollowingProgres(false, userId));
+    // });
 
 
     // dispatch(toggleFollowingProgres(true, userId));

@@ -1,7 +1,7 @@
 import { authAPI } from "../api/api";
 import { setStatus } from "./profile-reducer";
 
-const SET_USER_DATA = 'SET-USER-DATA';   //встановити дані користувача
+const SET_USER_DATA = 'login/SET-USER-DATA';   //встановити дані користувача
 // const UNFOLLOW = 'UN-FOLLOW';
 
 
@@ -47,41 +47,41 @@ export const setLoginUserData = (userId, email, login, isAuth) => ({
     { userId, email, login, isAuth }
 })
 
-export const getLoginUserDataThunk = () => (dispatch) => {
- return authAPI.getLoginMe()
-    .then(response => {
-      if (response.data.resultCode === 0) {
-        // this.props.setLoginUserData(response.data.data.login); //!Скорочуєм код
-        let { id, email, login } = response.data.data;
-        dispatch(setLoginUserData(id, email, login, true));
-      }
-    });
+export const getLoginUserDataThunk = () => async (dispatch) => {
+  let response = await authAPI.getLoginMe();
+  // .then(response => {
+  if (response.data.resultCode === 0) {
+    // this.props.setLoginUserData(response.data.data.login); //!Скорочуєм код
+    let { id, email, login } = response.data.data;
+    dispatch(setLoginUserData(id, email, login, true));
+  }
+  // });
 
 }
 
-export const loginThunk = (email, password, rememberMe, setStatus) => (dispatch) => {
+export const loginThunk = (email, password, rememberMe, setStatus) => async (dispatch) => {
   // debugger;
-  authAPI.login(email, password, rememberMe)
-    .then(response => {
-      if (response.data.resultCode === 0) {
-        dispatch(getLoginUserDataThunk())
-      }
-      else {
-        setStatus(response.data.messages) //сюди приходе повідомлення яке відповідає помилці
-        // setStatus(response.data.messages.length > 0 ? response.data.messages[0] : "Some error")
-      }
-    })
+  let response = await authAPI.login(email, password, rememberMe);
+  // .then(response => {
+  if (response.data.resultCode === 0) {
+    dispatch(getLoginUserDataThunk())
+  }
+  else {
+    setStatus(response.data.messages) //сюди приходе повідомлення яке відповідає помилці
+    // setStatus(response.data.messages.length > 0 ? response.data.messages[0] : "Some error")
+  }
+  // })
 }
 
 
-export const logoutThunk = () => (dispatch) => {
-  authAPI.logout()
-    .then(response => {
-      if (response.data.resultCode === 0) {
-        dispatch(setLoginUserData(null, null, null, false));
+export const logoutThunk = () => async (dispatch) => {
+  let response = await authAPI.logout();
+  // .then(response => {
+  if (response.data.resultCode === 0) {
+    dispatch(setLoginUserData(null, null, null, false));
 
-      }
-    })
+  }
+  // })
 }
 
 export default loginReducer;
