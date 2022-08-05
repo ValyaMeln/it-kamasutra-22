@@ -3,12 +3,15 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { Component } from 'react';
 
 
 
 
 
-const MyPosts = (props) => {
+const MyPosts = React.memo(props => {
+
+  console.log("123");
   // debugger;
   let postElements = props.posts.map(
     postElement => <Post message={postElement.message} likesCount={postElement.likesCount} />);
@@ -35,7 +38,8 @@ const MyPosts = (props) => {
       </ul>
     </div>
   );
-}
+});
+
 
 const UserForm2 = (props) => {
 
@@ -89,7 +93,7 @@ const UserForm2 = (props) => {
 
               />
             </div>
-            <ErrorMessage  name="newPostName" component="span" />
+            <ErrorMessage name="newPostName" component="span" />
 
             <button type={'submit'} className={s.button}>
               Add Post
