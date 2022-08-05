@@ -77,8 +77,8 @@ class UsersAPIComponent extends React.Component {
 let mapStateToProps = (state) => {
   console.log("map State To Props");
   return {
-    users: getUsersSelector(state),
-    // users: getUsersSuperSelector(state),
+    // users: getUsersSelector(state),
+    users: getUsersSuperSelector(state),
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),
     currentPage: getCurrentPage(state),
