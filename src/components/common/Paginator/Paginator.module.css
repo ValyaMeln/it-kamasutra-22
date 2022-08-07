@@ -1,23 +1,45 @@
 .selectedPage_wrapper {
   display: flex;
-  flex-wrap: wrap;
   list-style: none;
-  height: 100px;
-  overflow: auto;
-  /* overflow-y: scroll; */
-  direction: rtl;
-  /* scroll-behavior: smooth; */
+  align-items: center;
+
 }
 
-/* ::-webkit-scrollbar {
-  width: 50px;
-} */
-
 .selectedPage_wrapper li {
-  padding: 5px;
+  padding: 10px;
 }
 
 .selectedPage {
   font-weight: bold;
 
+}
+
+.paginator {
+  margin: 5px;
+}
+
+.pageNumber {
+  padding: 2px;
+  transition: all ease 1s;
+  /* border: 1px solid rgb(196, 13, 13); */
+}
+.pageNumber:hover {
+border-bottom: 1px solid rgb(196, 13, 13);
+}
+.btnPaginator {
+  border: none;
+  background-color: #fff;
+  color: black;
+  padding: 10px;
+  margin: 5px;
+  font-weight: bold;
+  border-radius: 15px;
+  transition: all ease 1s;
+  cursor: pointer;
+}
+
+.btnPaginator:hover {
+  border: none;
+  background-color: black;
+  color: #fff;
 }
