@@ -89,7 +89,7 @@ export const getUserProfileThunk = (userId) => async (dispatch) => {
 }
 
 export const getStatusThunk = (userId) => async (dispatch) => {
-  const response = await profileAPI.getStatus(userId);
+  const response = await profileAPI.getStatus(userId)
   // .then(response => {
   // debugger;
   dispatch(setStatus(response.data));
@@ -97,7 +97,7 @@ export const getStatusThunk = (userId) => async (dispatch) => {
   // })
 }
 export const updateStatusThunk = (status) => async (dispatch) => {
-  const response = await profileAPI.updateStatus(status);
+  const response = await profileAPI.updateStatus(status)
   // .then(response => {
   if (response.data.resultCode === 0) {
     dispatch(setStatus(status));

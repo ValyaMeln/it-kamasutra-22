@@ -12,6 +12,7 @@ let Paginator = (props) => {
     pages.push(i);
   }
 
+
   
   return (
     // <div>
