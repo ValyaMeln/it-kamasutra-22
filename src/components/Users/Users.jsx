@@ -4,23 +4,32 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user_logo.png";
 import { NavLink } from 'react-router-dom'
 import { usersAPI } from "../../api/api";
+import Paginator from "../common/Paginator/Paginator";
 
 
 let Users = (props) => {
-  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-  let pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
+  // let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+  // let pages = [];
+  // for (let i = 1; i <= pagesCount; i++) {
+  //   pages.push(i);
+  // }
+
   return (
     <div>
-      <ul className={s.selectedPage_wrapper}>
+      {/* <ul className={s.selectedPage_wrapper}>
         {pages.map(p => {
           return <li className={props.currentPage === p ? s.selectedPage : s.page}
             onClick={(e) => { props.onPageChanged(p); }}> {p}</li>
         })}
 
-      </ul>
+      </ul> */}
+      <Paginator
+        currentPage={props.currentPage}
+        onPageChanged={props.onPageChanged}
+        totalUsersCount={props.totalUsersCount}
+        pageSize={props.pageSize}
+      />
+
       <div className={s.user_box}>
         {
           props.users.map(u => <div key={u.id} className={s.wrapper} >

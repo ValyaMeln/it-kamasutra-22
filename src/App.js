@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 import { initializeApp } from "./redux/app-reducer";
 import { compose } from 'redux';
 import Preloader from './components/common/Preloader/Preloader';
-// import {withRouter} from "react-router-dom"
+
 
 
 
@@ -23,6 +23,7 @@ class App extends Component {
     this.props.initializeApp();
   }
   render() {
+    
     if (!this.props.initialized) {
       return <Preloader />
     }
